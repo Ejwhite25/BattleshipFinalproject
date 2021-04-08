@@ -5,7 +5,13 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+
+
 public class Server {
+    public static boolean hit = false;
+    public static int playerID;
+    // player 1 is 1.
+    //player 2 is 2.
     Runnable job;
     Thread thread;
     Socket connection;

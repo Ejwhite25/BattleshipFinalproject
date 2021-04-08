@@ -16,11 +16,13 @@ public class Player {
 
             reader =new InputStreamReader(socket.getInputStream());
             BufferedReader buffer = new BufferedReader(reader);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
             String msg= buffer.readLine();
             System.out.println(msg);
-
             writer = new PrintWriter(socket.getOutputStream());
-            writer.println("player connected");
+            System.out.print("Enter a random number");
+            String guess =  bufferedReader.readLine();
+            writer.println(guess);
             writer.flush();
 
         }catch (IOException e){
