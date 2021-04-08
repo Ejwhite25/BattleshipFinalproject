@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+public class Server1 {
     Runnable job;
     Thread thread;
     Socket connection;
@@ -14,7 +14,7 @@ public class Server {
     ServerSocket server;
 
     public static void main(String[] args){
-        new Server().go();
+        new Server1().go();
     }
     private void go(){
         try {
