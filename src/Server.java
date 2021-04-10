@@ -8,14 +8,13 @@ import java.net.Socket;
 
 
 public class Server {
-    public static boolean hit = false;
-    public static int playerID;
+    public static int playerID = 0;
     // player 1 is 1.
     //player 2 is 2.
     Runnable job;
     Thread thread;
     Socket connection;
-    InputStreamReader reader;
+    BufferedReader reader;
     PrintWriter writer;
     ServerSocket server;
 
@@ -24,7 +23,7 @@ public class Server {
     }
     private void go(){
         try {
-            server = new ServerSocket(5000);
+            server = new ServerSocket(9000);
             while(true) {
                 connection = server.accept();
 
@@ -48,15 +47,50 @@ public class Server {
         public void run() {
             try {
                 writer = new PrintWriter(connection.getOutputStream());
-                writer.println("connected to the server");
-                writer.flush();
+                reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                while(socket.isConnected()) {
+                    if (playerID == 0) {
+                        playerID = 1;
+                    }
+                    if (playerID == 1) {
+                        writer.println("Player 1's turn");
+                        writer.flush();
 
-                reader = new InputStreamReader(connection.getInputStream());
-                BufferedReader buffer = new BufferedReader(reader);
-                String msg = buffer.readLine();
-                System.out.println(msg);
+                    } else if (playerID == 2) {
+                        writer.println("PLayer 2's turn");
+                        writer.flush();
+                    }
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        String randomWord = "Dog";
+                        if (line == randomWord) {
+                            writer.println("Player" + playerID + "s guess was correct!");
+                            writer.flush();
+                            if (playerID == 1) {
+                                playerID = 2;
+                            } else {
+                                playerID = 1;
+                            }
+                            writer.println("Player" + playerID + "turn");
 
-            } catch (IOException e){
+                        } else {
+                            writer.println("Player" + playerID + "s guess was incorrect!");
+                            if (playerID == 1) {
+                                playerID = 2;
+                            } else {
+                                playerID = 1;
+                            }
+                            writer.println("Player" + playerID + "turn");
+                            writer.flush();
+
+
+                        }
+                    }
+
+
+                    }
+
+        } catch (IOException e){
                 e.printStackTrace();
             }
         }

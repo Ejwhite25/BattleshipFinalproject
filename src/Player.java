@@ -11,19 +11,25 @@ public class Player {
     }
     private void go(){
         try {
-            socket = new Socket("127.0.0.1", 5000);
-
-
+            socket = new Socket("127.0.0.1", 9000);
+            writer = new PrintWriter(socket.getOutputStream());
             reader =new InputStreamReader(socket.getInputStream());
             BufferedReader buffer = new BufferedReader(reader);
+            BufferedReader clientReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-            String msg= buffer.readLine();
-            System.out.println(msg);
-            writer = new PrintWriter(socket.getOutputStream());
-            System.out.print("Enter a random number");
-            String guess =  bufferedReader.readLine();
-            writer.println(guess);
-            writer.flush();
+            String line;
+            System.out.println("Welcome to the game");
+            System.out.println("Enter a guess");
+            String reteval = clientReader.readLine();
+            if(reteval != null) {
+                System.out.println(reteval);
+            }
+            while((line = bufferedReader.readLine()) != null){
+                    writer.println(line);
+                    writer.flush();
+                    reteval = clientReader.readLine();
+                    System.out.println(reteval);
+            }
 
         }catch (IOException e){
             e.printStackTrace();
