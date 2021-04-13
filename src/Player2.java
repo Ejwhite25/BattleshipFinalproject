@@ -10,6 +10,5 @@ public class Player2 {
        battleship = new Battleship();
        destroyer = new Destroyer();
        board = new Board();
-
     }
 }
