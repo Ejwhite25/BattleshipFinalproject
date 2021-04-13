@@ -14,7 +14,7 @@ public class Destroyer {
             int row = Math.abs(player1.destroyer.xAxisCoordinate / 10);
             int col = player1.destroyer.xAxisCoordinate % 10;
             int lastRow = Math.abs(player1.destroyer.yAxisCoordinate / 10);
-            int lastCol = player1.destroyer.yAxisCoordinate % 10;;
+            int lastCol = player1.destroyer.yAxisCoordinate % 10;
             if (col == lastCol) {
                 for(int i = col; i <= lastCol; i++) {
                     player1.board.board[row-1][i-1] = 1;
