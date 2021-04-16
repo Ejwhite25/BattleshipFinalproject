@@ -5,10 +5,38 @@ public class Player2 {
     Submarine submarine;
     Board board;
     public Player2(){
-       submarine = new Submarine();
-       carrier = new Carrier();
-       battleship = new Battleship();
-       destroyer = new Destroyer();
-       board = new Board();
+
+    }
+
+    public void setDestroyer(Destroyer destroyer) {
+        this.destroyer = destroyer;
+    }
+
+    public Destroyer getDestroyer() {
+        return destroyer;
+    }
+
+    public void setCarrier(Carrier carrier) {
+        this.carrier = carrier;
+    }
+
+    public Carrier getCarrier() {
+        return carrier;
+    }
+
+    public void setBattleship(Battleship battleship) {
+        this.battleship = battleship;
+    }
+
+    public Battleship getBattleship() {
+        return battleship;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }

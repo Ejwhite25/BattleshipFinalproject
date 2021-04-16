@@ -1,10 +1,12 @@
 public class Destroyer {
     int xAxisCoordinate;
     int yAxisCoordinate;
+    int[][] destroyerArray;
 
     public Destroyer(){
         xAxisCoordinate = 0;
         yAxisCoordinate = 0;
+        destroyerArray = new int[3][3];
     }
     
     void createShip(int playerID){
@@ -19,12 +21,14 @@ public class Destroyer {
                 for(int i = col; i <= lastCol; i++) {
                     player1.board.board[row-1][i-1] = 1;
                     player1.board.board1[row-1][i-1] = 1;
+                    player1.destroyer.destroyerArray[row-1][i-1] = 1;
                 }
             }
             else if(row == lastRow){
                 for(int i = row; i <= lastRow; i++){
                     player1.board.board[i-1][col-1] = 1;
                     player1.board.board1[i-1][col-1] = 1;
+                    player1.destroyer.destroyerArray[i-1][col-1] = 1;
                 }
             }
 
@@ -38,12 +42,14 @@ public class Destroyer {
                 for(int i = col1; i <= lastCol1; i++) {
                     player2.board.board[row1-1][i-1] = 1;
                     player2.board.board1[row1-1][i-1] = 1;
+                    player2.destroyer.destroyerArray[row1-1][i-1] = 1;
                 }
             }
             else if(row1 == lastRow1){
                 for(int i = row1; i <= lastRow1; i++){
-                    player1.board.board[i-1][col1-1] = 1;
-                    player1.board.board1[i-1][col1-1] = 1;
+                    player2.board.board[i-1][col1-1] = 1;
+                    player2.board.board1[i-1][col1-1] = 1;
+                    player2.destroyer.destroyerArray[i-1][col1-1] = 1;
                 }
             }
 

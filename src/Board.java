@@ -1,11 +1,22 @@
 public class Board {
-    public int[][] board;
-    public int [][] board1;
-    public int[][] board2;
-    public int[][] board3;
+    int[][] board;
+    int [][] board1;
     public Board(){
-          board = new int[14][14];
-          board1 = new int[14][14];
+
+    }
+
+    public void setBoard(int[][] board, int[][] board1) {
+        this.board = board;
+        this.board1 = board1;
+    }
+
+    public int[][] getBoard() {
+        return board;
+
+    }
+
+    public int[][] getBoard1() {
+        return board1;
     }
 
     public void displayBoard(){
