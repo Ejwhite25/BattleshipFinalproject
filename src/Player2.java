@@ -12,6 +12,14 @@ public class Player2 {
         this.destroyer = destroyer;
     }
 
+    public void setSubmarine(Submarine submarine) {
+        this.submarine = submarine;
+    }
+
+    public Submarine getSubmarine() {
+        return submarine;
+    }
+
     public Destroyer getDestroyer() {
         return destroyer;
     }

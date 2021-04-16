@@ -2,18 +2,18 @@ public class Turn {
     int playerId;
     int firstCoordinate;
     int secondCoordinate;
-    public Turn(int id,int row, int col,String shipType){
+    public Turn(int id,int row, int col){
         playerId = id;
         firstCoordinate = row;
         secondCoordinate = col;
-        shipType = "\0";
 
     }
 
 
     void testHit(Turn turn){
-        Player1 player1 = new Player1();
-        Player2 player2 = new Player2();
+        Controller controller = new Controller();
+
+
 
     }
 

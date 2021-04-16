@@ -37,29 +37,30 @@ public class Server {
     }
 
     public static void main(String[] args){
-        new Server().go();
+        (new Server()).go();
+
     }
-    private void go(){
+    private void go() {
 
         try {
             server = new ServerSocket(9000);
             Socket connection = server.accept();
 
-                jobOne = new JobOne(connection);
-                threadOne = new Thread(jobOne);
-                threadOne.start();
-                Socket connectionTwo = server.accept();
-                jobTwo = new JobTwo(connectionTwo);
-                threadTwo = new Thread(jobOne);
-                threadTwo.start();
+            jobOne = new JobOne(connection);
+            threadOne = new Thread(jobOne);
+            threadOne.start();
+            Socket connectionTwo = server.accept();
+            jobTwo = new JobTwo(connectionTwo);
+            threadTwo = new Thread(jobOne);
+            threadTwo.start();
 
-            } catch (IOException ioException) {
+        } catch (IOException ioException) {
             ioException.printStackTrace();
         }
     }
 
 
-    class JobOne implements Runnable {
+    private class JobOne implements Runnable {
         Socket socket;
 
         JobOne(Socket name) {
@@ -81,10 +82,9 @@ public class Server {
         }
     }
 
-        class JobTwo implements Runnable {
-            Socket socket;
-
-            JobTwo(Socket name) {
+        private class JobTwo implements Runnable {
+        Socket socket;
+            JobTwo(Socket name){
                 socket = name;
             }
 

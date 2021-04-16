@@ -5,6 +5,7 @@ public class Player1 {
     Submarine submarine;
     Board board;
     public Player1(){
+
     }
 
     public void setSubmarine(Submarine subSet){
@@ -36,5 +37,11 @@ public class Player1 {
 
     public Destroyer getDestroyer() {
         return destroyer;
+    }
+    public void setBoard(Board board){
+        this.board = board;
+    }
+    public Board getBoard(){
+        return board;
     }
 }
