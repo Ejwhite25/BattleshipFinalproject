@@ -9,14 +9,11 @@ import java.net.Socket;
 
 public class Server {
     public static int playerID = 0;
-    // player 1 is 1.
-    //player 2 is 2.
     private Object lock= new Object();
     Runnable jobOne;
     Runnable jobTwo;
     Thread threadOne;
     Thread threadTwo;
-    Socket connection;
     private BufferedReader reader;
     PrintWriter writer;
     ServerSocket server;
@@ -43,23 +40,24 @@ public class Server {
         new Server().go();
     }
     private void go(){
+
         try {
             server = new ServerSocket(9000);
-            while(true) {
-                connection = server.accept();
+            Socket connection = server.accept();
+
                 jobOne = new JobOne(connection);
                 threadOne = new Thread(jobOne);
                 threadOne.start();
-
-                jobTwo = new JobTwo(connection);
+                Socket connectionTwo = server.accept();
+                jobTwo = new JobTwo(connectionTwo);
                 threadTwo = new Thread(jobOne);
                 threadTwo.start();
 
-            }
-        } catch(IOException e){
-            e.printStackTrace();
+            } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
     }
+
 
     class JobOne implements Runnable {
         Socket socket;
@@ -77,11 +75,13 @@ public class Server {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                notifyLock();
+                waitForLock();
             }
         }
     }
 
-    class JobTwo implements Runnable {
+        class JobTwo implements Runnable {
             Socket socket;
 
             JobTwo(Socket name) {
@@ -91,6 +91,7 @@ public class Server {
             @Override
             public void run() {
                 while (true) {
+                    waitForLock();
                     System.out.println("First player: ");
                     System.out.println("First player: ");
                     try {
@@ -98,6 +99,7 @@ public class Server {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    notifyLock();
                 }
             }
         }
