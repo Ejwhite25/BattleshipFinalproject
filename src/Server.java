@@ -50,7 +50,6 @@ public class Server {
         writerSocket.println("Connecter One");
         writerSocket.flush();
 
-        //reader = new BufferedReader(new InputStreamReader(System.in));
         new Thread(new JobOne(connectionOne)).start();
 
         Socket connectionTwo = server.accept();
@@ -71,12 +70,13 @@ public class Server {
         @Override
         public void run() {
             while (true) {
-                // System.out.println("player 1=PING> input message: ");
+                System.out.println("player 1=PING> input message: ");
                 try {
                     //reading from socket input
                     readerSocket = new InputStreamReader(socket.getInputStream());
                     bufReader = new BufferedReader(readerSocket);
                     msg = bufReader.readLine();
+                    System.out.println(msg);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -88,7 +88,7 @@ public class Server {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                // System.out.println("player2> form player2 =PING> from PONG: " + msg);
+                System.out.println("player2> form player2 =PING> from PONG: " + msg);
                 writerSocket.println(msg);
                 writerSocket.flush();
 
@@ -114,7 +114,7 @@ public class Server {
                     writerSocket.flush();
 
                     //input then writes to socket then towards player One
-                    //  System.out.println("player 2 =PONG> input message: ");
+                    System.out.println("player 2 =PONG> input message: ");
 
                     readerSocket = new InputStreamReader(socket.getInputStream());
                     bufReader = new BufferedReader(readerSocket);
