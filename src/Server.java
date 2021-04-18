@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,10 +9,8 @@ import java.net.Socket;
 
 
 public class Server {
-    public static int playerID = 0;
     private Object lock= new Object();
-    Runnable jobOne;
-    Runnable jobTwo;
+
     Thread threadOne;
     Thread threadTwo;
     private BufferedReader reader;
@@ -19,12 +18,16 @@ public class Server {
     ServerSocket server;
     private String msg;
 
+    InputStreamReader readerSocket;
+    PrintWriter writerSocket;
+    BufferedReader bufReader;
+
     void waitForLock(){
         synchronized (lock){
             try {
-               lock.wait();
+                lock.wait();
 
-                } catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -36,27 +39,26 @@ public class Server {
         }
     }
 
-    public static void main(String[] args){
-        (new Server()).go();
-
+    public static void main(String[] args) throws IOException {
+        new Server().go();
     }
-    private void go() {
+    private void go() throws IOException {
+        server = new ServerSocket(9000);
+        Socket connectionOne = server.accept();
 
-        try {
-            server = new ServerSocket(9000);
-            Socket connection = server.accept();
+        writerSocket = new PrintWriter(connectionOne.getOutputStream());
+        writerSocket.println("Connecter One");
+        writerSocket.flush();
 
-            jobOne = new JobOne(connection);
-            threadOne = new Thread(jobOne);
-            threadOne.start();
-            Socket connectionTwo = server.accept();
-            jobTwo = new JobTwo(connectionTwo);
-            threadTwo = new Thread(jobOne);
-            threadTwo.start();
+        //reader = new BufferedReader(new InputStreamReader(System.in));
+        new Thread(new JobOne(connectionOne)).start();
 
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
+        Socket connectionTwo = server.accept();
+        writerSocket = new PrintWriter(connectionTwo.getOutputStream());
+        writerSocket.println("Connected Two");
+        writerSocket.flush();
+        new Thread(new JobTwo(connectionTwo)).start();
+
     }
 
 
@@ -66,43 +68,65 @@ public class Server {
         JobOne(Socket name) {
             socket = name;
         }
-
         @Override
         public void run() {
             while (true) {
-                System.out.println("First player: ");
+                // System.out.println("player 1=PING> input message: ");
                 try {
-                    msg = reader.readLine();
+                    //reading from socket input
+                    readerSocket = new InputStreamReader(socket.getInputStream());
+                    bufReader = new BufferedReader(readerSocket);
+                    msg = bufReader.readLine();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 notifyLock();
                 waitForLock();
+                try {
+                    writerSocket = new PrintWriter(socket.getOutputStream());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                // System.out.println("player2> form player2 =PING> from PONG: " + msg);
+                writerSocket.println(msg);
+                writerSocket.flush();
+
             }
         }
     }
 
-        private class JobTwo implements Runnable {
+    class JobTwo implements Runnable {
         Socket socket;
-            JobTwo(Socket name){
-                socket = name;
-            }
 
-            @Override
-            public void run() {
-                while (true) {
-                    waitForLock();
-                    System.out.println("First player: ");
-                    System.out.println("First player: ");
-                    try {
-                        msg = reader.readLine();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    notifyLock();
+        JobTwo(Socket name) {
+            socket = name;
+        }
+        @Override
+        public void run() {
+            while (true) {
+                waitForLock();
+                try {
+                    //writing to socket to send player two msg to player one
+                    System.out.println(" player 2=PONG> from PING: "+ msg);
+                    writerSocket = new PrintWriter(socket.getOutputStream());
+                    writerSocket.println(msg);
+                    writerSocket.flush();
+
+                    //input then writes to socket then towards player One
+                    //  System.out.println("player 2 =PONG> input message: ");
+
+                    readerSocket = new InputStreamReader(socket.getInputStream());
+                    bufReader = new BufferedReader(readerSocket);
+                    msg = bufReader.readLine();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+                notifyLock();
             }
         }
+    }
 }
 
 
