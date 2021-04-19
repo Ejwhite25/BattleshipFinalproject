@@ -9,12 +9,7 @@ import java.net.Socket;
 
 
 public class Server {
-    private Object lock= new Object();
-
-    Thread threadOne;
-    Thread threadTwo;
-    private BufferedReader reader;
-    PrintWriter writer;
+    private final Object lock= new Object();
     ServerSocket server;
     private String msg;
 
@@ -70,9 +65,7 @@ public class Server {
         @Override
         public void run() {
             while (true) {
-                // System.out.println("player 1=PING> input message: ");
                 try {
-                    //reading from socket input
                     readerSocket = new InputStreamReader(socket.getInputStream());
                     bufReader = new BufferedReader(readerSocket);
                     msg = bufReader.readLine();//write to
@@ -83,7 +76,6 @@ public class Server {
                 }
                 notifyLock();
                 waitForLock();
-                //read (send to player one)
                 try {
                     writerSocket = new PrintWriter(socket.getOutputStream());
                 } catch (IOException e) {
@@ -108,14 +100,11 @@ public class Server {
             while (true) {
                 waitForLock();
                 try {
-                    //read(send to player r2)
-                    //from p1 to player2
                     System.out.println(" server:: p1 >> p2 : "+ msg);//read
                     writerSocket = new PrintWriter(socket.getOutputStream());
                     writerSocket.println(msg);//send
                     writerSocket.flush();
 
-                    //from p2 to p1
                     readerSocket = new InputStreamReader(socket.getInputStream());//
                     bufReader = new BufferedReader(readerSocket);
                     msg = bufReader.readLine();//write

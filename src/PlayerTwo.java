@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.io.*;
-import java.net.Socket;
 
 public class PlayerTwo {
     Socket socket;
@@ -18,22 +16,18 @@ public class PlayerTwo {
     private void go(){
         try {
             socket = new Socket("127.0.0.1", 9000);
-            recieveRead();
-
+            receiveRead();
 
             while(true) {
-
                 if(state) {
                     writeSend();
                     state = false;
-
                 }
                 else {
-                    recieveRead();
+                    receiveRead();
                     state = true;
                 }
             }
-
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -49,7 +43,7 @@ public class PlayerTwo {
         writerSocket.flush();
     }
 
-    void recieveRead() throws IOException {
+    void receiveRead() throws IOException {
         readerSocket = new InputStreamReader(socket.getInputStream());
         bufReader = new BufferedReader(readerSocket);
         String line = bufReader.readLine();//prints date from incoming connexion
