@@ -46,15 +46,15 @@ public class Server {
         server = new ServerSocket(9000);
         Socket connectionOne = server.accept();
         writerSocket = new PrintWriter(connectionOne.getOutputStream());
-        writerSocket.println("1 Connected to server");
+        writerSocket.println("P1 connected to server");
         writerSocket.flush();
-        System.out.println("player one connected");
+        System.out.println("P1 connected");
         new Thread(new JobOne(connectionOne)).start();
 
         Socket connectionTwo = server.accept();
-        System.out.println("player Two connected");
+        System.out.println("P2 connected");
         writerSocket = new PrintWriter(connectionTwo.getOutputStream());
-        writerSocket.println("0 Connected to server");
+        writerSocket.println("P2 connected to server");
         writerSocket.flush();
         new Thread(new JobTwo(connectionTwo)).start();
 
