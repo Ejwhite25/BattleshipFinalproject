@@ -50,5 +50,6 @@ public class Destroyer {
             }
 
         }
-    }
+    }//function th check through coordinates for loss.
+
 }

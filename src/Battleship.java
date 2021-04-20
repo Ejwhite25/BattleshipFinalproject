@@ -4,6 +4,9 @@ public class Battleship {
     int[][] battleShipArray;
 
     public Battleship(int x,int y) {
+        if(x + y != 4){
+            System.out.println("Battleship coordinates must have a range of 4");
+        }
         this.xAxisCoordinate = x;
         this.yAxisCoordinate = y;
     }
