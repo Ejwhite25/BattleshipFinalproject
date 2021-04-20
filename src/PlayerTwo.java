@@ -8,7 +8,7 @@ public class PlayerTwo {
     Socket socket;
     InputStreamReader readerSocket;
     PrintWriter writerSocket;
-    BufferedReader bufReader;
+    BufferedReader bufferedReader;
     boolean state = false;
     public static void main(String[] args){
         new PlayerTwo().go();
@@ -35,8 +35,8 @@ public class PlayerTwo {
     }
     void writeSend() throws IOException {
         System.out.println("player 2:: input message: ");
-        bufReader = new BufferedReader(new InputStreamReader(System.in));
-        String input = bufReader.readLine();
+        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        String input = bufferedReader.readLine();
         System.out.println("input = "+input);
         writerSocket = new PrintWriter(socket.getOutputStream());
         writerSocket.println(input);
@@ -45,8 +45,8 @@ public class PlayerTwo {
 
     void receiveRead() throws IOException {
         readerSocket = new InputStreamReader(socket.getInputStream());
-        bufReader = new BufferedReader(readerSocket);
-        String line = bufReader.readLine();//prints date from incoming connexion
+        bufferedReader = new BufferedReader(readerSocket);
+        String line = bufferedReader.readLine();//prints date from incoming connexion
         System.out.println("player 2:: from server >  "+line);
     }
 

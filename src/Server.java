@@ -7,15 +7,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 
-
 public class Server {
     private final Object lock= new Object();
     ServerSocket server;
-    private String msg;
+    private String sharedMessage;
 
     InputStreamReader readerSocket;
     PrintWriter writerSocket;
-    BufferedReader bufReader;
+    BufferedReader buffedReader;
 
     void waitForLock(){
         synchronized (lock){
@@ -67,9 +66,9 @@ public class Server {
             while (true) {
                 try {
                     readerSocket = new InputStreamReader(socket.getInputStream());
-                    bufReader = new BufferedReader(readerSocket);
-                    msg = bufReader.readLine();//write to
-                    System.out.println("server:: p1 >> "+msg);
+                    buffedReader = new BufferedReader(readerSocket);
+                    sharedMessage = buffedReader.readLine();
+                    System.out.println("server:: p1 >> "+sharedMessage);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -81,8 +80,8 @@ public class Server {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.println("server:: p2 >> p2 " + msg);//read
-                writerSocket.println(msg);//send
+                System.out.println("server:: p2 >> p2 " + sharedMessage);
+                writerSocket.println(sharedMessage);
                 writerSocket.flush();
 
             }
@@ -100,15 +99,15 @@ public class Server {
             while (true) {
                 waitForLock();
                 try {
-                    System.out.println(" server:: p1 >> p2 : "+ msg);//read
+                    System.out.println(" server:: p1 >> p2 : "+ sharedMessage);
                     writerSocket = new PrintWriter(socket.getOutputStream());
-                    writerSocket.println(msg);//send
+                    writerSocket.println(sharedMessage);
                     writerSocket.flush();
 
                     readerSocket = new InputStreamReader(socket.getInputStream());//
-                    bufReader = new BufferedReader(readerSocket);
-                    msg = bufReader.readLine();//write
-                    System.out.println("server:: p2 >> "+msg);
+                    buffedReader = new BufferedReader(readerSocket);
+                    sharedMessage = buffedReader.readLine();//write
+                    System.out.println("server:: p2 >> "+sharedMessage);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
