@@ -40,6 +40,7 @@ public class PlayerOne {
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         String input = bufferedReader.readLine();
         System.out.println("input = "+input);
+        System.out.println("wait for turn...");
         writerSocket = new PrintWriter(socket.getOutputStream());
         writerSocket.println(input);
         writerSocket.flush();

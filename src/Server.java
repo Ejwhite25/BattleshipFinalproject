@@ -80,7 +80,7 @@ public class Server {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.println("server:: p2 >> p2 " + sharedMessage);
+                System.out.println("server:: p2 >> p2 : " + sharedMessage);
                 writerSocket.println(sharedMessage);
                 writerSocket.flush();
 
@@ -99,7 +99,7 @@ public class Server {
             while (true) {
                 waitForLock();
                 try {
-                    System.out.println(" server:: p1 >> p2 : "+ sharedMessage);
+                    System.out.println("server:: p1 >> p2 : "+ sharedMessage);
                     writerSocket = new PrintWriter(socket.getOutputStream());
                     writerSocket.println(sharedMessage);
                     writerSocket.flush();
