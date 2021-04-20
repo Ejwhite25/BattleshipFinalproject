@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class PlayerOne {
-    GUIController guiController = new GUIController();
     Socket socket;
     InputStreamReader readerSocket;
     PrintWriter writerSocket;
@@ -37,11 +36,10 @@ public class PlayerOne {
 
     }
     void writeSend() throws IOException {
-        guiController.gui.setOutputText("player 1:: input message: ");
+        System.out.println("player 1:: input message: ");
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         String input = bufferedReader.readLine();
         System.out.println("input = "+input);
-        input = guiController.inputLine;
         writerSocket = new PrintWriter(socket.getOutputStream());
         writerSocket.println(input);
         writerSocket.flush();
@@ -51,7 +49,7 @@ public class PlayerOne {
         readerSocket = new InputStreamReader(socket.getInputStream());
         bufferedReader = new BufferedReader(readerSocket);
         String line = bufferedReader.readLine();//prints date from incoming connexion
-        guiController.gui.setOutputText("player 1:: from server >  "+line);
+        System.out.println("player 1:: from server >  "+line);
     }
 
 }
