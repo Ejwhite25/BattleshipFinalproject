@@ -13,17 +13,17 @@ public class Controller {
     Board player2board;
 
     public Controller(){
-        player1 = new Player1();
-        player2 = new Player2();
-        player1battleship = player1.getBattleship();
-        player2battleship = player2.getBattleship();
-        player1destroyer = player1.getDestroyer();
-        player1destroyer = player2.getDestroyer();
-        player1submarine = player1.getSubmarine();
-        player2submarine = player2.getSubmarine();
-        player1carrier = player1.getCarrier();
-        player2carrier = player2.getCarrier();
-        player1board = player1.getBoard();
-        player2board = player2.getBoard();
+        this.player1 = new Player1();
+        this.player2 = new Player2();
+        this.player1battleship = player1.getBattleship();
+        this.player2battleship = player2.getBattleship();
+        this.player1destroyer = player1.getDestroyer();
+        this.player1destroyer = player2.getDestroyer();
+        this.player1submarine = player1.getSubmarine();
+        this.player2submarine = player2.getSubmarine();
+        this.player1carrier = player1.getCarrier();
+        this.player2carrier = player2.getCarrier();
+        this.player1board = player1.getBoard();
+        this.player2board = player2.getBoard();
     }
 }
