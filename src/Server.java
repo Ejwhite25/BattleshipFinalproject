@@ -9,12 +9,11 @@ import java.net.Socket;
 
 public class Server {
     private final Object lock= new Object();
-    ServerSocket server;
+    private static ServerSocket server;
     private String sharedMessage;
-
-    InputStreamReader readerSocket;
-    PrintWriter writerSocket;
-    BufferedReader buffedReader;
+    private static InputStreamReader readerSocket;
+    public PrintWriter writerSocket;
+    public BufferedReader buffedReader;
 
     void waitForLock(){
         synchronized (lock){
