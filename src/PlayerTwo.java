@@ -31,7 +31,6 @@ public class PlayerTwo {
         }catch (IOException e){
             e.printStackTrace();
         }
-
     }
     void writeSend() throws IOException {
         System.out.println("player 2:: input message: ");
