@@ -31,7 +31,6 @@ public class PlayerTwo {
         }catch (IOException e){
             e.printStackTrace();
         }
-
     }
     void writeSend() throws IOException {
         System.out.println("player 2:: input message: ");
@@ -46,7 +45,7 @@ public class PlayerTwo {
     void receiveRead() throws IOException {
         readerSocket = new InputStreamReader(socket.getInputStream());
         bufferedReader = new BufferedReader(readerSocket);
-        String line = bufferedReader.readLine();//prints date from incoming connexion
+        String line = bufferedReader.readLine();
         System.out.println("player 2:: from server >  "+line);
     }
 

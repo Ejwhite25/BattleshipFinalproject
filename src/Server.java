@@ -103,9 +103,9 @@ public class Server {
                     writerSocket.println(sharedMessage);
                     writerSocket.flush();
 
-                    readerSocket = new InputStreamReader(socket.getInputStream());//
+                    readerSocket = new InputStreamReader(socket.getInputStream());
                     buffedReader = new BufferedReader(readerSocket);
-                    sharedMessage = buffedReader.readLine();//write
+                    sharedMessage = buffedReader.readLine();
                     System.out.println("server:: p2 >> "+sharedMessage);
                 } catch (IOException e) {
                     e.printStackTrace();

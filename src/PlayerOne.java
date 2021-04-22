@@ -48,7 +48,7 @@ public class PlayerOne {
     void receiveRead() throws IOException {
         readerSocket = new InputStreamReader(socket.getInputStream());
         bufferedReader = new BufferedReader(readerSocket);
-        String line = bufferedReader.readLine();//prints date from incoming connexion
+        String line = bufferedReader.readLine();
         System.out.println("player 1:: from server >  "+line);
     }
 
