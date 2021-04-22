@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class PlayerOne {
     Socket socket;
@@ -10,13 +11,15 @@ public class PlayerOne {
     PrintWriter writerSocket;
     BufferedReader bufferedReader;
     boolean state = true;
+    Controller controller = new Controller();
+    private ArrayList<String> ships = new ArrayList<String>(4);
 
     public static void main(String[] args){
         new PlayerOne().go();
     }
     private void go(){
         try {
-            socket = new Socket("127.0.0.1", 9000);
+            socket = new Socket("127.0.0.1", 5000);
             receiveRead();
 
             while(true) {
@@ -36,10 +39,25 @@ public class PlayerOne {
 
     }
     void writeSend() throws IOException {
-        System.out.println("player 1:: input message: ");
-        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        String input = bufferedReader.readLine();
-        System.out.println("input = "+input);
+        String input = null;
+        ships.add("Carrier");
+        ships.add("Destroyer");
+        ships.add("Battleship");
+        ships.add("Submarine");
+        for(int i =0; i < ships.size(); i++){
+            System.out.println("player 1:Enter X coordinate for: " + ships.get(i));
+            bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            input = bufferedReader.readLine();
+            int x = Integer.parseInt(input);
+            System.out.println("player1:Enter Y coordinate for:" + ships.get(i));
+            input = bufferedReader.readLine();
+            int y = Integer.parseInt(input);
+            if(ships.get(i) == "Destroyer"){
+                Destroyer destroyer = new Destroyer(x,y);
+                controller.player1.setDestroyer(destroyer);
+            }
+            
+        }
         writerSocket = new PrintWriter(socket.getOutputStream());
         writerSocket.println(input);
         writerSocket.flush();
@@ -48,7 +66,7 @@ public class PlayerOne {
     void receiveRead() throws IOException {
         readerSocket = new InputStreamReader(socket.getInputStream());
         bufferedReader = new BufferedReader(readerSocket);
-        String line = bufferedReader.readLine();//prints date from incoming connexion
+        String line = bufferedReader.readLine();
         System.out.println("player 1:: from server >  "+line);
     }
 

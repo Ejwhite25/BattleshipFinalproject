@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 
 public class Server {
@@ -14,6 +15,7 @@ public class Server {
     private static InputStreamReader readerSocket;
     public PrintWriter writerSocket;
     public BufferedReader buffedReader;
+    Controller controller = new Controller();
 
     void waitForLock(){
         synchronized (lock){
@@ -36,13 +38,14 @@ public class Server {
         new Server().go();
     }
     private void go() throws IOException {
-        server = new ServerSocket(9000);
+        server = new ServerSocket(5000);
         Socket connectionOne = server.accept();
         writerSocket = new PrintWriter(connectionOne.getOutputStream());
         writerSocket.println("P1 connected to server");
         writerSocket.flush();
         System.out.println("P1 connected");
         new Thread(new JobOne(connectionOne)).start();
+
 
         Socket connectionTwo = server.accept();
         System.out.println("P2 connected");
@@ -87,7 +90,7 @@ public class Server {
         }
     }
 
-    class JobTwo implements Runnable {
+    private class JobTwo implements Runnable {
         Socket socket;
 
         JobTwo(Socket name) {
@@ -103,9 +106,9 @@ public class Server {
                     writerSocket.println(sharedMessage);
                     writerSocket.flush();
 
-                    readerSocket = new InputStreamReader(socket.getInputStream());//
+                    readerSocket = new InputStreamReader(socket.getInputStream());
                     buffedReader = new BufferedReader(readerSocket);
-                    sharedMessage = buffedReader.readLine();//write
+                    sharedMessage = buffedReader.readLine();
                     System.out.println("server:: p2 >> "+sharedMessage);
                 } catch (IOException e) {
                     e.printStackTrace();

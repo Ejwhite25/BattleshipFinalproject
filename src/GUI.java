@@ -9,12 +9,16 @@ public class GUI {
     JFrame f = new JFrame();
     JFrame frame = new JFrame();
     JLabel label = new JLabel();
+    JTextArea board1Area = new JTextArea();
+    JTextArea board2Area = new JTextArea();
     JButton enterButton = new JButton("Enter");
     JButton leaveButton = new JButton("Leave");
     JTextField playerInput = new JTextField();
     JTextField serverOutput = new JTextField();
     public void GUI() {
         this.frame.getContentPane().add(BorderLayout.NORTH,this.serverOutput);
+        this.frame.getContentPane().add(BorderLayout.WEST,this.board1Area);
+        this.frame.getContentPane().add(BorderLayout.EAST,this.board2Area);
         this.jPanel.add(playerInput);
         this.jPanel.add(enterButton);
         this.jPanel.add(leaveButton);

@@ -20,10 +20,10 @@ public class GUIController {
     }
 
     public class leaveButtonActionListener implements ActionListener{
-
+        public leaveButtonActionListener(){}
         @Override
         public void actionPerformed(ActionEvent e) {
-            //Get server to shutdown.
+
         }
     }
 
