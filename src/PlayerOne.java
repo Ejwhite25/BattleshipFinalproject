@@ -52,9 +52,27 @@ public class PlayerOne {
             System.out.println("player1:Enter Y coordinate for:" + ships.get(i));
             input = bufferedReader.readLine();
             int y = Integer.parseInt(input);
-            if(ships.get(i) == "Destroyer"){
-                Destroyer destroyer = new Destroyer(x,y);
-                controller.player1.setDestroyer(destroyer);
+            switch (ships.get(i)) {
+                case "Destroyer" -> {
+                    Destroyer destroyer = new Destroyer(x, y);
+                    controller.player1.setDestroyer(destroyer);
+                    controller.player1.destroyer.createShip(1);
+                }
+                case "Carrier" -> {
+                    Carrier carrier = new Carrier(x, y);
+                    controller.player1.setCarrier(carrier);
+                    controller.player1.carrier.createShip(1);
+                }
+                case "Battleship" -> {
+                    Battleship battleship = new Battleship(x, y);
+                    controller.player1.setBattleship(battleship);
+                    controller.player1.battleship.createShip(1);
+                }
+                case "Submarine" -> {
+                    Submarine submarine = new Submarine(x, y);
+                    controller.player1.setSubmarine(submarine);
+                    controller.player1.submarine.createShip(1);
+                }
             }
             
         }
