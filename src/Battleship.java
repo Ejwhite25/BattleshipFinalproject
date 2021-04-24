@@ -13,8 +13,6 @@ public class Battleship {
 
     void createShip(int playerID) {
         Controller controller = new Controller();
-        Player1 player1 = new Player1();
-        Player2 player2 = new Player2();
         if(playerID == 1){
         int row = Math.abs(controller.player1battleship.xAxisCoordinate / 10);
         int col = controller.player1battleship.xAxisCoordinate % 10;

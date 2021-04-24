@@ -12,6 +12,14 @@ public class Turn {
 
     void testHit(Turn turn){
         Controller controller = new Controller();
+        if(turn.playerId == 1){
+            if(controller.player2board.board[turn.firstCoordinate][turn.secondCoordinate] == 1){
+
+            }
+        }
+        else if(turn.playerId == 2){
+            
+        }
 
 
 

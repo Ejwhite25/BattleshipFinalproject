@@ -11,6 +11,7 @@ public class PlayerOne {
     PrintWriter writerSocket;
     BufferedReader bufferedReader;
     boolean state = true;
+    GUIController guiController = new GUIController();
     Controller controller = new Controller();
     private ArrayList<String> ships = new ArrayList<String>(4);
 
@@ -24,6 +25,7 @@ public class PlayerOne {
 
             while(true) {
                 if(state) {
+                    playerSetup();
                     writeSend();
                     state = false;
                 }
@@ -38,21 +40,21 @@ public class PlayerOne {
         }
 
     }
-    void writeSend() throws IOException {
-        String input = null;
+    void playerSetup() throws IOException{
+        String input = guiController.inputLine;
         ships.add("Carrier");
         ships.add("Destroyer");
         ships.add("Battleship");
         ships.add("Submarine");
-        for(int i =0; i < ships.size(); i++){
-            System.out.println("player 1:Enter X coordinate for: " + ships.get(i));
+        for (String ship : ships) {
+            System.out.println("player 1:Enter X coordinate for: " + ship);
             bufferedReader = new BufferedReader(new InputStreamReader(System.in));
             input = bufferedReader.readLine();
             int x = Integer.parseInt(input);
-            System.out.println("player1:Enter Y coordinate for:" + ships.get(i));
+            System.out.println("player1:Enter Y coordinate for:" + ship);
             input = bufferedReader.readLine();
             int y = Integer.parseInt(input);
-            switch (ships.get(i)) {
+            switch (ship) {
                 case "Destroyer" -> {
                     Destroyer destroyer = new Destroyer(x, y);
                     controller.player1.setDestroyer(destroyer);
@@ -74,8 +76,12 @@ public class PlayerOne {
                     controller.player1.submarine.createShip(1);
                 }
             }
-            
+
         }
+
+    }
+    void writeSend() throws IOException {
+        String input = guiController.inputLine;
         writerSocket = new PrintWriter(socket.getOutputStream());
         writerSocket.println(input);
         writerSocket.flush();

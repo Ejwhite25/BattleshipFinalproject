@@ -24,6 +24,7 @@ public class PlayerTwo {
 
             while(true) {
                 if(state) {
+                    playerSetup();
                     writeSend();
                     state = false;
                 }
@@ -36,7 +37,7 @@ public class PlayerTwo {
             e.printStackTrace();
         }
     }
-    void writeSend() throws IOException {
+    void playerSetup() throws IOException{
         String input = guiController.inputLine;
         ships.add("Carrier");
         ships.add("Destroyer");
@@ -75,6 +76,9 @@ public class PlayerTwo {
 
         }
 
+    }
+    void writeSend() throws IOException {
+        String input = guiController.inputLine;
         writerSocket = new PrintWriter(socket.getOutputStream());
         writerSocket.println(input);
         writerSocket.flush();
