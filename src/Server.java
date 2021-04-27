@@ -9,12 +9,12 @@ import java.util.ArrayList;
 
 
 public class Server {
-    private final Object lock= new Object();
-    private static ServerSocket server;
-    private String sharedMessage;
+    private static PrintWriter writerSocket;
+    private static BufferedReader buffedReader;
+    private static String sharedMessage;
     private static InputStreamReader readerSocket;
-    public PrintWriter writerSocket;
-    public BufferedReader buffedReader;
+    private final Object lock= new Object();
+
     Controller controller = new Controller();
 
     void waitForLock(){
@@ -38,7 +38,7 @@ public class Server {
         new Server().go();
     }
     private void go() throws IOException {
-        server = new ServerSocket(5000);
+        ServerSocket server = new ServerSocket(5000);
         Socket connectionOne = server.accept();
         writerSocket = new PrintWriter(connectionOne.getOutputStream());
         writerSocket.println("P1 connected to server");
