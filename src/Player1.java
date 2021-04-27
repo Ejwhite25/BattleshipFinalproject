@@ -9,7 +9,8 @@ public class Player1 {
     }
 
     public void setSubmarine(Submarine subSet){
-        submarine = subSet;
+
+        this.submarine = subSet;
     }
     public Submarine getSubmarine(){
         return submarine;
@@ -28,7 +29,7 @@ public class Player1 {
     }
 
     public Carrier getCarrier() {
-        return carrier;
+        return this.carrier;
     }
 
     public void setDestroyer(Destroyer destroyer) {

@@ -58,7 +58,7 @@ public class PlayerTwo {
                     controller.player2.destroyer.createShip(2);
                 }
                 case "Carrier" -> {
-                    Carrier carrier = new Carrier(x, y);
+                    Carrier carrier = new Carrier(x,y);
                     controller.player2.setCarrier(carrier);
                     controller.player2.carrier.createShip(2);
                 }

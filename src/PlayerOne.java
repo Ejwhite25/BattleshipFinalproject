@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class PlayerOne {
+    Player1 player1 = new Player1();
     Socket socket;
     InputStreamReader readerSocket;
     PrintWriter writerSocket;
@@ -20,12 +21,12 @@ public class PlayerOne {
     }
     private void go(){
         try {
+            playerSetup();
             socket = new Socket("127.0.0.1", 5000);
             receiveRead();
 
             while(true) {
                 if(state) {
-                    playerSetup();
                     writeSend();
                     state = false;
                 }
@@ -56,14 +57,14 @@ public class PlayerOne {
             int y = Integer.parseInt(input);
             switch (ship) {
                 case "Destroyer" -> {
-                    Destroyer destroyer = new Destroyer(x, y);
+                    Destroyer destroyer = new Destroyer(x,y);
                     controller.player1.setDestroyer(destroyer);
-                    controller.player1.destroyer.createShip(1);
+                    player1.destroyer.createShip(1);
                 }
                 case "Carrier" -> {
-                    Carrier carrier = new Carrier(x, y);
+                    Carrier carrier = new Carrier(x,y);
                     controller.player1.setCarrier(carrier);
-                    controller.player1.carrier.createShip(1);
+                    controller.player1carrier.createShip(1);
                 }
                 case "Battleship" -> {
                     Battleship battleship = new Battleship(x, y);
@@ -81,7 +82,10 @@ public class PlayerOne {
 
     }
     void writeSend() throws IOException {
-        String input = guiController.inputLine;
+        String input;
+        System.out.println("player 1:Enter X and Y coordinates: ");
+        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        input = bufferedReader.readLine();
         writerSocket = new PrintWriter(socket.getOutputStream());
         writerSocket.println(input);
         writerSocket.flush();

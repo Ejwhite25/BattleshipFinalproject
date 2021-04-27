@@ -4,9 +4,9 @@ public class Carrier {
     public int yAxisCoordinate;
     public int[][] carrierArray;
 
-    public Carrier(int xAxisCoordinate,int yAxisCoordinate){
-        this.xAxisCoordinate = xAxisCoordinate;
-        this.yAxisCoordinate = yAxisCoordinate;
+    public Carrier(int x,int y){
+        xAxisCoordinate = x;
+        yAxisCoordinate = y;
 
     }
 
@@ -15,20 +15,20 @@ public class Carrier {
     void createShip(int playerID){
         Controller controller = new Controller();
         if(playerID == 1){
-            int row = Math.abs( controller.player1carrier.xAxisCoordinate/ 10);
-            int col = controller.player1carrier.xAxisCoordinate % 10;
-            int lastRow = Math.abs(controller.player1carrier.yAxisCoordinate / 10);
-            int lastCol = controller.player1carrier.yAxisCoordinate % 10;;
+            int row = Math.abs(controller.player1carrier.xAxisCoordinate/10);
+            int col = controller.player1.carrier.xAxisCoordinate % 10;
+            int lastRow = Math.abs(controller.player1.carrier.yAxisCoordinate / 10);
+            int lastCol = controller.player1.carrier.yAxisCoordinate % 10;;
             if (col == lastCol) {
                 for(int i = col; i <= lastCol; i++) {
-                    controller.player1board.board[row-1][i-1] = 1;
-                    controller.player1carrier.carrierArray[row-1][i-1] = 1;
+                    controller.player1.board.board[row-1][i-1] = 1;
+                    controller.player1.carrier.carrierArray[row-1][i-1] = 1;
                 }
             }
             else if(row == lastRow){
                 for(int i = row; i <= lastRow; i++){
-                    controller.player1board.board[i-1][col-1] = 1;
-                    controller.player1carrier.carrierArray[i-1][col-1] = 1;
+                    controller.player1.board.board[i-1][col-1] = 1;
+                    controller.player1.carrier.carrierArray[i-1][col-1] = 1;
                 }
             }
 

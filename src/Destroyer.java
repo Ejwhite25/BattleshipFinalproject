@@ -7,7 +7,8 @@ public class Destroyer {
         this.xAxisCoordinate = x;
         this.yAxisCoordinate = y;
     }
-    
+
+
     void createShip(int playerID){
         Controller controller = new Controller();
         if(playerID == 1){

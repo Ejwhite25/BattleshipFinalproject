@@ -70,7 +70,10 @@ public class Server {
                     readerSocket = new InputStreamReader(socket.getInputStream());
                     buffedReader = new BufferedReader(readerSocket);
                     sharedMessage = buffedReader.readLine();
-                    System.out.println("server:: p1 >> "+sharedMessage);
+                    String[] coordinates = sharedMessage.split(",");
+                    int x = Integer.parseInt(coordinates[0]);
+                    int y = Integer.parseInt(coordinates[1]);
+                    System.out.println("server:: x >> "+String.valueOf(x) + " " + "server:: y >>" + String.valueOf(y));
 
                 } catch (IOException e) {
                     e.printStackTrace();
