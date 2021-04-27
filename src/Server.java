@@ -37,18 +37,18 @@ public class Server {
     public static void main(String[] args) throws IOException {
         new Server().go();
     }
-    private void go() throws IOException {
+    void go() throws IOException {
         ServerSocket server = new ServerSocket(5000);
         Socket connectionOne = server.accept();
         writerSocket = new PrintWriter(connectionOne.getOutputStream());
         writerSocket.println("P1 connected to server");
         writerSocket.flush();
-        System.out.println("P1 connected");
+        System.out.println("@server>> P1 connected");
         new Thread(new JobOne(connectionOne)).start();
 
 
         Socket connectionTwo = server.accept();
-        System.out.println("P2 connected");
+        System.out.println("@server>> P2 connected");
         writerSocket = new PrintWriter(connectionTwo.getOutputStream());
         writerSocket.println("P2 connected to server");
         writerSocket.flush();
