@@ -6,10 +6,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class PlayerTwo {
-    Socket socket;
-    InputStreamReader readerSocket;
-    PrintWriter writerSocket;
-    BufferedReader bufferedReader;
+    private Socket socket;
+    private static InputStreamReader readerSocket;
+    private static PrintWriter writerSocket;
+    private static BufferedReader bufferedReader;
     boolean state = false;
     Controller controller = new Controller();
     GUIController guiController = new GUIController();

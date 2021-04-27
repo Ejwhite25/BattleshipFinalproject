@@ -6,11 +6,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class PlayerOne {
-    Socket socket;
-    InputStreamReader readerSocket;
-    PrintWriter writerSocket;
-    BufferedReader bufferedReader;
-    boolean state = true;
+    private Socket socket;
+    private static InputStreamReader readerSocket;
+    private static PrintWriter writerSocket;
+    private static BufferedReader bufferedReader;
+    private static boolean state = true;
     GUIController guiController = new GUIController();
     Controller controller = new Controller();
     private ArrayList<String> ships = new ArrayList<String>(4);
@@ -80,14 +80,14 @@ public class PlayerOne {
         }
 
     }
-    void writeSend() throws IOException {
+    private void writeSend() throws IOException {
         String input = guiController.inputLine;
         writerSocket = new PrintWriter(socket.getOutputStream());
         writerSocket.println(input);
         writerSocket.flush();
     }
 
-    void receiveRead() throws IOException {
+    private void receiveRead() throws IOException {
         readerSocket = new InputStreamReader(socket.getInputStream());
         bufferedReader = new BufferedReader(readerSocket);
         String line = bufferedReader.readLine();
