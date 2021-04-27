@@ -22,10 +22,9 @@ public class PlayerOne {
         try {
             socket = new Socket("127.0.0.1", 7000);
             receiveRead();
-
+            playerSetup();
             while(true) {
                 if(state) {
-                    playerSetup();
                     writeSend();
                     state = false;
                 }
