@@ -1,8 +1,9 @@
 public class Board {
-    int[][] board;
-    int[][] board1;
-    public Board(){
-
+    public int[][] board;
+    public int[][] board1;
+    public Board(int[][] boardSet,int[][] boardSet1){
+        this.board = boardSet;
+        this.board1 = boardSet1;
     }
 
     public void setBoard(int[][] board) {
@@ -10,7 +11,7 @@ public class Board {
     }
 
     public int[][] getBoard() {
-        return board;
+        return this.board;
 
     }
 

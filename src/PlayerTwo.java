@@ -45,6 +45,11 @@ public class PlayerTwo {
         ships.add("Destroyer");
         ships.add("Battleship");
         ships.add("Submarine");
+        int[][] board1 = new int[10][10];
+        int[][] board2 = new int[10][10];
+        Board board = new Board(board1,board2);
+        Controller.player2.setBoard(board);
+        Controller.player2board = Controller.player2.getBoard();
         for (String ship : ships) {
             System.out.println("player 2:Enter X coordinate for: " + ship);
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -56,23 +61,27 @@ public class PlayerTwo {
             switch (ship) {
                 case "Destroyer" -> {
                     Destroyer destroyer = new Destroyer(x, y);
-                    controller.player2.setDestroyer(destroyer);
-                    controller.player2.destroyer.createShip(2);
+                    Controller.player2.setDestroyer(destroyer);
+                    Controller.player2destroyer = Controller.player2.getDestroyer();
+                    Controller.player2.destroyer.createShip(2);
                 }
                 case "Carrier" -> {
                     Carrier carrier = new Carrier(x,y);
-                    controller.player2.setCarrier(carrier);
-                    controller.player2.carrier.createShip(2);
+                    Controller.player2.setCarrier(carrier);
+                    Controller.player2carrier = Controller.player2.getCarrier();
+                    Controller.player2.carrier.createShip(2);
                 }
                 case "Battleship" -> {
                     Battleship battleship = new Battleship(x, y);
-                    controller.player2.setBattleship(battleship);
-                    controller.player2.battleship.createShip(2);
+                    Controller.player2.setBattleship(battleship);
+                    Controller.player2battleship = Controller.player2.getBattleship();
+                    Controller.player2.battleship.createShip(2);
                 }
                 case "Submarine" -> {
                     Submarine submarine = new Submarine(x, y);
-                    controller.player2.setSubmarine(submarine);
-                    controller.player2.submarine.createShip(2);
+                    Controller.player2.setSubmarine(submarine);
+                    Controller.player2submarine = Controller.player2.getSubmarine();
+                    Controller.player2.submarine.createShip(2);
                 }
             }
 

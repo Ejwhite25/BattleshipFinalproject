@@ -13,7 +13,7 @@ public class Player1 {
         this.submarine = subSet;
     }
     public Submarine getSubmarine(){
-        return submarine;
+        return this.submarine;
     }
 
     public void setBattleship(Battleship battleshipSet) {
@@ -24,8 +24,9 @@ public class Player1 {
         return battleship;
     }
 
-    public void setCarrier(Carrier carrier) {
-        this.carrier = carrier;
+    public void setCarrier(Carrier carrierSet) {
+       this.carrier = carrierSet;
+
     }
 
     public Carrier getCarrier() {
