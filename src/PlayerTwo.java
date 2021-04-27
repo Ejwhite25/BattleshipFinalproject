@@ -6,25 +6,27 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class PlayerTwo {
-    Socket socket;
-    InputStreamReader readerSocket;
-    PrintWriter writerSocket;
-    BufferedReader bufferedReader;
-    boolean state = false;
+    private Socket socket;
+    private static InputStreamReader readerSocket;
+    private static PrintWriter writerSocket;
+    private static BufferedReader bufferedReader;
+    private static boolean state = false;
     Controller controller = new Controller();
     GUIController guiController = new GUIController();
     private ArrayList<String> ships = new ArrayList<String>(4);
+
+
     public static void main(String[] args){
         new PlayerTwo().go();
     }
+
     private void go(){
         try {
-            socket = new Socket("127.0.0.1", 9000);
+            socket = new Socket("127.0.0.1", 7000);
             receiveRead();
-
+            playerSetup();
             while(true) {
                 if(state) {
-                    playerSetup();
                     writeSend();
                     state = false;
                 }
@@ -77,7 +79,7 @@ public class PlayerTwo {
         }
 
     }
-    void writeSend() throws IOException {
+    private void writeSend() throws IOException {
         String input = guiController.inputLine;
         writerSocket = new PrintWriter(socket.getOutputStream());
         writerSocket.println(input);
@@ -85,7 +87,7 @@ public class PlayerTwo {
 
     }
 
-    void receiveRead() throws IOException {
+    private void receiveRead() throws IOException {
         readerSocket = new InputStreamReader(socket.getInputStream());
         bufferedReader = new BufferedReader(readerSocket);
         String line = bufferedReader.readLine();

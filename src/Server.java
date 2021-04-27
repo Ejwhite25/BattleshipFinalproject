@@ -9,12 +9,12 @@ import java.util.ArrayList;
 
 
 public class Server {
-    private final Object lock= new Object();
-    private static ServerSocket server;
-    private String sharedMessage;
+    private static PrintWriter writerSocket;
+    private static BufferedReader buffedReader;
+    private static String sharedMessage;
     private static InputStreamReader readerSocket;
-    public PrintWriter writerSocket;
-    public BufferedReader buffedReader;
+    private final Object lock= new Object();
+
     Controller controller = new Controller();
 
     void waitForLock(){
@@ -37,18 +37,18 @@ public class Server {
     public static void main(String[] args) throws IOException {
         new Server().go();
     }
-    private void go() throws IOException {
-        server = new ServerSocket(5000);
+    void go() throws IOException {
+        ServerSocket server = new ServerSocket(7000);
         Socket connectionOne = server.accept();
         writerSocket = new PrintWriter(connectionOne.getOutputStream());
         writerSocket.println("P1 connected to server");
         writerSocket.flush();
-        System.out.println("P1 connected");
+        System.out.println("@server>> P1 connected");
         new Thread(new JobOne(connectionOne)).start();
 
 
         Socket connectionTwo = server.accept();
-        System.out.println("P2 connected");
+        System.out.println("@server>> P2 connected");
         writerSocket = new PrintWriter(connectionTwo.getOutputStream());
         writerSocket.println("P2 connected to server");
         writerSocket.flush();

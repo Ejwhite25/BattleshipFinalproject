@@ -6,9 +6,7 @@ import java.util.ArrayList;
 
 public class GUI {
     JPanel jPanel = new JPanel();
-    JFrame f = new JFrame();
     JFrame frame = new JFrame();
-    JLabel label = new JLabel();
     JTextArea board1Area = new JTextArea();
     JTextArea board2Area = new JTextArea();
     JButton enterButton = new JButton("Enter");
