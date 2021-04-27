@@ -19,7 +19,7 @@ public class PlayerTwo {
     }
     private void go(){
         try {
-            socket = new Socket("127.0.0.1", 9000);
+            socket = new Socket("127.0.0.1", 5000);
             receiveRead();
 
             while(true) {
