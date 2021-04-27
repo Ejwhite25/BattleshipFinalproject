@@ -38,7 +38,7 @@ public class Server {
         new Server().go();
     }
     void go() throws IOException {
-        ServerSocket server = new ServerSocket(5000);
+        ServerSocket server = new ServerSocket(7000);
         Socket connectionOne = server.accept();
         writerSocket = new PrintWriter(connectionOne.getOutputStream());
         writerSocket.println("P1 connected to server");

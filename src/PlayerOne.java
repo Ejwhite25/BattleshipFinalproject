@@ -20,7 +20,7 @@ public class PlayerOne {
     }
     private void go(){
         try {
-            socket = new Socket("127.0.0.1", 5000);
+            socket = new Socket("127.0.0.1", 7000);
             receiveRead();
 
             while(true) {

@@ -14,12 +14,15 @@ public class PlayerTwo {
     Controller controller = new Controller();
     GUIController guiController = new GUIController();
     private ArrayList<String> ships = new ArrayList<String>(4);
+
+
     public static void main(String[] args){
         new PlayerTwo().go();
     }
+
     private void go(){
         try {
-            socket = new Socket("127.0.0.1", 5000);
+            socket = new Socket("127.0.0.1", 7000);
             receiveRead();
 
             while(true) {
