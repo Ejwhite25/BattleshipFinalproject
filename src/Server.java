@@ -15,8 +15,6 @@ public class Server {
     private static InputStreamReader readerSocket;
     private final Object lock= new Object();
 
-    Controller controller = new Controller();
-
     void waitForLock(){
         synchronized (lock){
             try {
@@ -43,12 +41,12 @@ public class Server {
         writerSocket = new PrintWriter(connectionOne.getOutputStream());
         writerSocket.println("P1 connected to server");
         writerSocket.flush();
-        System.out.println("@server>> P1 connected");
+        System.out.println("server>> P1 connected");
         new Thread(new JobOne(connectionOne)).start();
 
 
         Socket connectionTwo = server.accept();
-        System.out.println("@server>> P2 connected");
+        System.out.println("server>> P2 connected");
         writerSocket = new PrintWriter(connectionTwo.getOutputStream());
         writerSocket.println("P2 connected to server");
         writerSocket.flush();
@@ -73,7 +71,13 @@ public class Server {
                     String[] coordinates = sharedMessage.split(",");
                     int x = Integer.parseInt(coordinates[0]);
                     int y = Integer.parseInt(coordinates[1]);
-                    System.out.println("server:: x >> "+String.valueOf(x) + " " + "server:: y >>" + String.valueOf(y));
+                    Turn turn = new Turn(1,x,y);
+                    if(turn.testHit(turn)){
+                        sharedMessage = "Player 1 has a hit!";
+                    }
+                    else{
+                        sharedMessage = "Player 1 has a miss.";
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -112,6 +116,16 @@ public class Server {
                     readerSocket = new InputStreamReader(socket.getInputStream());
                     buffedReader = new BufferedReader(readerSocket);
                     sharedMessage = buffedReader.readLine();
+                    String[] coordinates = sharedMessage.split(",");
+                    int x = Integer.parseInt(coordinates[0]);
+                    int y = Integer.parseInt(coordinates[1]);
+                    Turn turn = new Turn(2,x,y);
+                    if(turn.testHit(turn)){
+                        sharedMessage = "Player 2 has a hit!";
+                    }
+                    else{
+                        sharedMessage = "Player 2 has a miss\n";
+                    }
                     System.out.println("server:: p2 >> "+sharedMessage);
                 } catch (IOException e) {
                     e.printStackTrace();

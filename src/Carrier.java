@@ -39,13 +39,13 @@ public class Carrier {
             int lastCol1 = Controller.player2carrier.yAxisCoordinate % 10;
             if (col1 == lastCol1) {
                 for(int i = col1; i <= lastCol1; i++) {
-                    Controller.player2board.board[row1-1][i-1] = 1;
+                    Controller.player2board.board1[row1-1][i-1] = 1;
                     Controller.player2carrier.carrierArray[row1-1][i-1] = 1;
                 }
             }
             else if(row1 == lastRow1){
                 for(int i = row1; i <= lastRow1; i++){
-                    Controller.player2board.board[i-1][col1-1] = 1;
+                    Controller.player2board.board1[i-1][col1-1] = 1;
                     Controller.player2carrier.carrierArray[i-1][col1-1] = 1;
                 }
             }

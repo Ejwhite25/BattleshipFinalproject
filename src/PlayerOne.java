@@ -5,14 +5,13 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class PlayerOne { ;
+public class PlayerOne { 
     Socket socket;
     InputStreamReader readerSocket;
     PrintWriter writerSocket;
     BufferedReader bufferedReader;
     boolean state = true;
     GUIController guiController = new GUIController();
-    private ArrayList<String> ships = new ArrayList<String>(4);
 
     public static void main(String[] args){
         new PlayerOne().go();
@@ -41,16 +40,12 @@ public class PlayerOne { ;
     }
     void playerSetup() throws IOException{
         String input = guiController.inputLine;
-        ships.add("Carrier");
-        ships.add("Destroyer");
-        ships.add("Battleship");
-        ships.add("Submarine");
         int[][] board1 = new int[10][10];
         int[][] board2 = new int[10][10];
         Board board = new Board(board1,board2);
         Controller.player1.setBoard(board);
         Controller.player1board = Controller.player1.getBoard();
-        for (String ship : ships) {
+        for (String ship :Controller.player1.shipsPlayer1) {
             System.out.println("player 1:Enter X coordinate for: " + ship);
             bufferedReader = new BufferedReader(new InputStreamReader(System.in));
             input = bufferedReader.readLine();
@@ -85,23 +80,25 @@ public class PlayerOne { ;
             }
 
         }
+        Controller.player1board.displayBoard();
 
     }
     void writeSend() throws IOException {
-        String input;
-        System.out.println("player 1:Enter X and Y coordinates: ");
-        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        input = bufferedReader.readLine();
-        writerSocket = new PrintWriter(socket.getOutputStream());
-        writerSocket.println(input);
-        writerSocket.flush();
+        String input = null;
+        guiController.gui.setOutputText("Player1> Enter your guess in the format: X,Y");
+        input = guiController.inputLine;
+        if(input != null){
+            writerSocket = new PrintWriter(socket.getOutputStream());
+            writerSocket.println(input);
+            writerSocket.flush();
+        }
     }
 
     void receiveRead() throws IOException {
         readerSocket = new InputStreamReader(socket.getInputStream());
         bufferedReader = new BufferedReader(readerSocket);
         String line = bufferedReader.readLine();
-        System.out.println("player 1:: from server >  "+line);
+        guiController.gui.setOutputText(line);
     }
 
 }

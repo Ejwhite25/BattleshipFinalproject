@@ -19,7 +19,8 @@ public class Battleship {
         int lastRow = Math.abs(Controller.player1battleship.yAxisCoordinate / 10);
         int lastCol = Controller.player1battleship.yAxisCoordinate % 10;;
             if (col == lastCol) {
-                for(int i = col; i <= lastCol; i++) {
+                for(int i = col; i <= lastCol; i++){
+                    //Error checking on this.
                     Controller.player1board.board[row-1][i-1] = 1;
                     Controller.player1.battleship.battleShipArray[row-1][i-1] = 1;
                 }

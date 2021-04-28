@@ -49,4 +49,23 @@ public class Submarine {
 
         }
     }
+    public Boolean testHit(int playerId,int row, int col){
+        if(playerId == 1)
+            for (int[] ints : Controller.player1submarine.submarineArray) {
+                for (int anInt : ints) {
+                    return anInt == Controller.player1submarine.submarineArray[row][col];
+                }
+                return null;
+            }
+        else if(playerId == 2){
+            for (int[] ints : Controller.player2submarine.submarineArray) {
+                for (int anInt : ints) {
+                    return anInt == Controller.player2submarine.submarineArray[row][col];
+                }
+            }
+
+        }
+        return null;
+    }
 }
+

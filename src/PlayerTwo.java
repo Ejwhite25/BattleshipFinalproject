@@ -86,13 +86,18 @@ public class PlayerTwo {
             }
 
         }
+        Controller.player2board.displayBoard();
 
     }
     private void writeSend() throws IOException {
-        String input = guiController.inputLine;
-        writerSocket = new PrintWriter(socket.getOutputStream());
-        writerSocket.println(input);
-        writerSocket.flush();
+        String input;
+        guiController.gui.setOutputText("Player2> Enter your guess in the format: X,Y");
+        input = guiController.inputLine;
+        if(input != null){
+            writerSocket = new PrintWriter(socket.getOutputStream());
+            writerSocket.println(input);
+            writerSocket.flush();
+        }
 
     }
 
@@ -100,7 +105,7 @@ public class PlayerTwo {
         readerSocket = new InputStreamReader(socket.getInputStream());
         bufferedReader = new BufferedReader(readerSocket);
         String line = bufferedReader.readLine();
-        System.out.println("player 2:: from server >  "+line);
+        guiController.gui.setOutputText(line);
     }
 
 }

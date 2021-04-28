@@ -4,39 +4,37 @@ public class Turn {
     int playerId;
     int firstCoordinate;
     int secondCoordinate;
-    Controller controller = new Controller();
-    public Turn(int id,int row, int col) {
+
+    public Turn(int id, int row, int col) {
         playerId = id;
         firstCoordinate = row;
         secondCoordinate = col;
 
     }
 
-    void testHit(Turn turn){
-        if(turn.playerId == 1){
-            if(controller.player2board.board[turn.firstCoordinate][turn.secondCoordinate] == 1){
-                controller.player2board.board[turn.firstCoordinate][turn.secondCoordinate] = 0;
-                controller.player1board.board1[turn.firstCoordinate][turn.secondCoordinate] = 0;
-
+    boolean testHit(Turn turn) {
+        if (turn.playerId == 1) {
+            if (Controller.player2board.board[turn.firstCoordinate][turn.secondCoordinate] == 1) {
+                Controller.player2board.board[turn.firstCoordinate][turn.secondCoordinate] = 0;
+                Controller.player1board.board1[turn.firstCoordinate][turn.secondCoordinate] = 0;
+                Controller.player2.markShipHit(turn.firstCoordinate, turn.secondCoordinate);
+                return true;
+            } else {
+                Controller.player1board.board1[turn.firstCoordinate][turn.secondCoordinate] = '\0';
+                return false;
             }
-            else{
-                controller.player1board.board1[turn.firstCoordinate][turn.secondCoordinate] = '\0';
+        } else if (turn.playerId == 2) {
+            if (Controller.player1board.board[turn.firstCoordinate][turn.secondCoordinate] == 1) {
+                Controller.player1board.board[turn.firstCoordinate][turn.secondCoordinate] = 0;
+                Controller.player2board.board1[turn.firstCoordinate][turn.secondCoordinate] = 0;
+                Controller.player1.markShipHit(turn.firstCoordinate, turn.secondCoordinate);
+                return true;
+            } else {
+                Controller.player2board.board1[turn.firstCoordinate][turn.secondCoordinate] = '\0';
+                return false;
+
             }
         }
-        else if(turn.playerId == 2){
-            if(controller.player1board.board[turn.firstCoordinate][turn.secondCoordinate] == 1){
-                controller.player1board.board[turn.firstCoordinate][turn.secondCoordinate] = 0;
-                controller.player2board.board1[turn.firstCoordinate][turn.secondCoordinate] = 0;
-            }
-            else{
-                controller.player2board.board1[turn.firstCoordinate][turn.secondCoordinate] = '\0';
-
-            }
-        }
-
-
-
+        return false;
     }
-
-
 }
