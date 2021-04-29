@@ -76,7 +76,7 @@ public class Server {
                         sharedMessage = "Player 1 has a hit!";
                     }
                     else{
-                        sharedMessage = "Player 1 has a miss.";
+                        sharedMessage = "Player 1 has a miss. ";
                     }
 
                 } catch (IOException e) {

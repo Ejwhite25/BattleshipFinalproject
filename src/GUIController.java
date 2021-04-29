@@ -2,10 +2,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GUIController {
-    GUI gui = new GUI();
     String inputLine;
+    GUI gui;
 
     public GUIController(){
+        gui = new GUI();
         this.gui.setEnterButtonActionListener(new GUIController.enterButtonActionListener());
         this.gui.setLeaveButtonActionListener(new GUIController.leaveButtonActionListener());
     }
@@ -15,7 +16,6 @@ public class GUIController {
         @Override
         public void actionPerformed(ActionEvent e) {
             inputLine = gui.getInputText();
-
         }
     }
 

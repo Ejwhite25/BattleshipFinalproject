@@ -14,9 +14,6 @@ public class Controller {
     static Board player2board;
 
     public Controller(){
-        player1 = new Player1();
-        player2 = new Player2();
-
 
     }
 }

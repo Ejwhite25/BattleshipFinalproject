@@ -5,18 +5,23 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class PlayerOne { 
+public class PlayerOne {
     Socket socket;
     InputStreamReader readerSocket;
     PrintWriter writerSocket;
-    BufferedReader bufferedReader;
-    boolean state = true;
     GUIController guiController = new GUIController();
+    BufferedReader bufferedReader;
+    static String input;
+    boolean state = true;
 
     public static void main(String[] args){
+        input = null;
+        GUIController guiController1 = new GUIController();
         new PlayerOne().go();
+
     }
     private void go(){
+
         try {
             playerSetup();
             socket = new Socket("127.0.0.1", 5000);
@@ -39,19 +44,21 @@ public class PlayerOne {
 
     }
     void playerSetup() throws IOException{
-        String input = guiController.inputLine;
+        String input = null;
+        while(input == null){
+            input = guiController.inputLine;
+        }
         int[][] board1 = new int[10][10];
         int[][] board2 = new int[10][10];
+        Controller.player1 = new Player1();
         Board board = new Board(board1,board2);
         Controller.player1.setBoard(board);
         Controller.player1board = Controller.player1.getBoard();
         for (String ship :Controller.player1.shipsPlayer1) {
-            System.out.println("player 1:Enter X coordinate for: " + ship);
+            guiController.gui.setOutputText("player 1:Enter X coordinate for: " + ship);
             bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-            input = bufferedReader.readLine();
             int x = Integer.parseInt(input);
-            System.out.println("player1:Enter Y coordinate for:" + ship);
-            input = bufferedReader.readLine();
+            guiController.gui.setOutputText("player1:Enter Y coordinate for:" + ship);
             int y = Integer.parseInt(input);
             switch (ship) {
                 case "Destroyer" -> {
@@ -80,10 +87,10 @@ public class PlayerOne {
             }
 
         }
-        Controller.player1board.displayBoard();
 
     }
     void writeSend() throws IOException {
+        Controller.player1board.displayBoard();
         String input = null;
         guiController.gui.setOutputText("Player1> Enter your guess in the format: X,Y");
         input = guiController.inputLine;

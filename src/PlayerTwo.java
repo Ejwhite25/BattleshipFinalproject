@@ -86,10 +86,10 @@ public class PlayerTwo {
             }
 
         }
-        Controller.player2board.displayBoard();
 
     }
     private void writeSend() throws IOException {
+        Controller.player2board.displayBoard();
         String input;
         guiController.gui.setOutputText("Player2> Enter your guess in the format: X,Y");
         input = guiController.inputLine;

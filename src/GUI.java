@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GUI {
-    JPanel jPanel = new JPanel();
+    JPanel jPanel = new JPanel();;
     JFrame frame = new JFrame();
     JTextArea board1Area = new JTextArea();
     JTextArea board2Area = new JTextArea();
@@ -13,7 +13,8 @@ public class GUI {
     JButton leaveButton = new JButton("Leave");
     JTextField playerInput = new JTextField();
     JTextField serverOutput = new JTextField();
-    public void GUI() {
+    public GUI() {
+        this.frame.setLayout(new BorderLayout());
         this.frame.getContentPane().add(BorderLayout.NORTH,this.serverOutput);
         this.frame.getContentPane().add(BorderLayout.WEST,this.board1Area);
         this.frame.getContentPane().add(BorderLayout.EAST,this.board2Area);
@@ -21,8 +22,8 @@ public class GUI {
         this.jPanel.add(enterButton);
         this.jPanel.add(leaveButton);
         this.frame.getContentPane().add(BorderLayout.SOUTH,this.jPanel);
-
-
+        this.frame.setSize(300,300);
+        this.frame.setVisible(true);
     }
 
     void setEnterButtonActionListener(ActionListener al){
