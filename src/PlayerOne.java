@@ -45,17 +45,17 @@ public class PlayerOne {
     }
     void playerSetup() throws IOException{
         String input = null;
-        while(input == null){
-            input = guiController.inputLine;
-        }
+        input = guiController.inputLine;
         int[][] board1 = new int[10][10];
         int[][] board2 = new int[10][10];
         Controller.player1 = new Player1();
         Board board = new Board(board1,board2);
         Controller.player1.setBoard(board);
         Controller.player1board = Controller.player1.getBoard();
+        Controller.player1board.displayBoard();
         for (String ship :Controller.player1.shipsPlayer1) {
-            guiController.gui.setOutputText("player 1:Enter X coordinate for: " + ship);
+            System.out.println("Inside for loop\n");
+            guiController.gui.setOutputText("player1:Enter X coordinate for:" + ship);
             bufferedReader = new BufferedReader(new InputStreamReader(System.in));
             int x = Integer.parseInt(input);
             guiController.gui.setOutputText("player1:Enter Y coordinate for:" + ship);
@@ -90,7 +90,6 @@ public class PlayerOne {
 
     }
     void writeSend() throws IOException {
-        Controller.player1board.displayBoard();
         String input = null;
         guiController.gui.setOutputText("Player1> Enter your guess in the format: X,Y");
         input = guiController.inputLine;

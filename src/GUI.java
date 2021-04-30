@@ -5,16 +5,29 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GUI {
-    JPanel jPanel = new JPanel();;
-    JFrame frame = new JFrame();
-    JTextArea board1Area = new JTextArea();
-    JTextArea board2Area = new JTextArea();
-    JButton enterButton = new JButton("Enter");
-    JButton leaveButton = new JButton("Leave");
-    JTextField playerInput = new JTextField();
-    JTextField serverOutput = new JTextField();
+    JPanel jPanel;
+    JPanel boardPanel;
+    JFrame frame;
+    JButton enterButton;
+    JButton leaveButton;
+    JTextField playerInput;
+    JTextField serverOutput;
+    JTextArea board1Area;
+    JTextArea board2Area;
+
     public GUI() {
-        this.frame.setLayout(new BorderLayout());
+        jPanel = new JPanel();
+        boardPanel = new JPanel();
+        frame = new JFrame();
+        enterButton = new JButton("Enter");
+        leaveButton = new JButton("Leave");
+        playerInput = new JTextField();
+        serverOutput = new JTextField();
+        board1Area = new JTextArea(10,40);
+        board2Area = new JTextArea(10,40);
+        this.boardPanel.add(board1Area);
+        this.boardPanel.add(board2Area);
+        this.frame.getContentPane().add(BorderLayout.CENTER,this.boardPanel);
         this.frame.getContentPane().add(BorderLayout.NORTH,this.serverOutput);
         this.frame.getContentPane().add(BorderLayout.WEST,this.board1Area);
         this.frame.getContentPane().add(BorderLayout.EAST,this.board2Area);
@@ -22,7 +35,7 @@ public class GUI {
         this.jPanel.add(enterButton);
         this.jPanel.add(leaveButton);
         this.frame.getContentPane().add(BorderLayout.SOUTH,this.jPanel);
-        this.frame.setSize(300,300);
+        this.frame.setSize(1000,1000);
         this.frame.setVisible(true);
     }
 

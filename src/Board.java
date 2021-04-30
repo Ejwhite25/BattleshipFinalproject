@@ -17,8 +17,8 @@ public class Board {
     }
 
     public void displayBoard(){
-        for(int x =0; x < board.length; x++){
-            for(int y = 0; x < board[x].length; y++){
+        for(int x =1; x < board.length; x++){
+            for(int y = 1; x < board1.length; y++){
                 guiController.gui.board1Area.setText("[" +board[x][y]+ "]");
                 guiController.gui.board2Area.setText("[" +board1[x][y]+ "]");
             }
