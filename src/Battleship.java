@@ -4,15 +4,12 @@ public class Battleship {
     int[][] battleShipArray;
 
     public Battleship(int x,int y) {
-        if(x + y != 4){
-            System.out.println("Battleship coordinates must have a range of 4");
-        }
         this.xAxisCoordinate = x;
         this.yAxisCoordinate = y;
         battleShipArray = new int[10][10];
     }
 
-    void createShip(int playerID) { ;
+    void createShip(int playerID) {
         if(playerID == 1){
         int row = Math.abs(Controller.player1battleship.xAxisCoordinate / 10);
         int col = Controller.player1battleship.xAxisCoordinate % 10;
@@ -21,14 +18,14 @@ public class Battleship {
             if (col == lastCol) {
                 for(int i = col; i <= lastCol; i++){
                     //Error checking on this.
-                    Controller.player1board.board[row-1][i-1] = 1;
-                    Controller.player1.battleship.battleShipArray[row-1][i-1] = 1;
+                    Controller.player1board.board[row][i] = 1;
+                    Controller.player1.battleship.battleShipArray[row][i] = 1;
                 }
             }
             else if(row == lastRow){
                 for(int i = row; i <= lastRow; i++){
-                    Controller.player1board.board[i-1][col-1] = 1;
-                    Controller.player1battleship.battleShipArray[i-1][col-1] = 1;
+                    Controller.player1board.board[i][col] = 1;
+                    Controller.player1battleship.battleShipArray[i][col] = 1;
                 }
             }
 
@@ -40,14 +37,14 @@ public class Battleship {
             int lastCol1 = Controller.player2battleship.yAxisCoordinate % 10;;
             if (col1 == lastCol1) {
                 for(int i = col1; i <= lastCol1; i++) {
-                    Controller.player2board.board[row1-1][i-1] = 1;
-                    Controller.player2.battleship.battleShipArray[row1-1][i-1] = 1;
+                    Controller.player2board.board[row1][i] = 1;
+                    Controller.player2.battleship.battleShipArray[row1][i] = 1;
                 }
             }
             else if(row1 == lastRow1){
                 for(int i = row1; i <= lastRow1; i++){
-                    Controller.player2board.board[i-1][col1-1] = 1;
-                    Controller.player2battleship.battleShipArray[i-1][col1-1] = 1;
+                    Controller.player2board.board[i][col1] = 1;
+                    Controller.player2battleship.battleShipArray[i][col1] = 1;
                 }
             }
 

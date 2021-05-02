@@ -23,6 +23,7 @@ public class GUI {
         leaveButton = new JButton("Leave");
         playerInput = new JTextField();
         serverOutput = new JTextField();
+        playerInput.setPreferredSize(new Dimension(200,20));
         board1Area = new JTextArea(10,40);
         board2Area = new JTextArea(10,40);
         this.boardPanel.add(board1Area);

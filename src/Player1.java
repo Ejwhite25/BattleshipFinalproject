@@ -15,7 +15,6 @@ public class Player1 {
     }
 
     public void setSubmarine(Submarine subSet){
-
         this.submarine = subSet;
     }
     public Submarine getSubmarine(){

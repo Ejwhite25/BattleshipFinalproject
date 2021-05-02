@@ -16,6 +16,7 @@ public class GUIController {
         @Override
         public void actionPerformed(ActionEvent e) {
             inputLine = gui.getInputText();
+            gui.playerInput.setText(null);
         }
     }
 
