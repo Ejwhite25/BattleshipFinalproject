@@ -12,6 +12,8 @@ public class Turn {
 
     }
 
+
+
     boolean testHit(Turn turn) {
         if (turn.playerId == 1) {
             if (Controller.player2board.board[turn.firstCoordinate][turn.secondCoordinate] == 1) {

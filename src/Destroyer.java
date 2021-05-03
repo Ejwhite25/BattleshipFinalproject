@@ -11,24 +11,24 @@ public class Destroyer {
 
 
     void createShip(int playerID){
-        if(playerID == 1){
-            int row = Math.abs(Controller.player1destroyer.xAxisCoordinate / 10);
-            int col = Math.abs(Controller.player1destroyer.yAxisCoordinate / 10);
-            int lastRow = Controller.player1destroyer.xAxisCoordinate % 10;
-            int lastCol = Controller.player1destroyer.yAxisCoordinate % 10;
-            if (col == lastCol) {
-                for(int i = col; i <= lastCol; i++) {
-                    Controller.player1board.board[row][i] = 1;
-                    Controller.player1destroyer.destroyerArray[row][i] = 1;
-                }
-            }
-            else if(row == lastRow){
-                for(int i = row; i <= lastRow; i++){
-                    Controller.player1board.board[i][col] = 1;
-                    Controller.player1destroyer.destroyerArray[i][col] = 1;
-                }
-            }
+        System.out.println("Setting up destroyer");
+        if(playerID == 1) {
+                int row = Math.abs(Controller.player1destroyer.xAxisCoordinate / 10);
+                int col = Math.abs(Controller.player1destroyer.yAxisCoordinate / 10);
+                int lastRow = Controller.player1destroyer.xAxisCoordinate % 10;
+                int lastCol = Controller.player1destroyer.yAxisCoordinate % 10;
+                if (col == lastCol) {
+                    for (int i = col; i <= lastCol; i++) {
+                        Controller.player1board.board[row][i] = 1;
+                        Controller.player1destroyer.destroyerArray[row][i] = 1;
+                    }
+                } else if (row == lastRow) {
+                    for (int i = row; i <= lastRow; i++) {
+                        Controller.player1board.board[i][col] = 1;
+                        Controller.player1destroyer.destroyerArray[i][col] = 1;
 
+                    }
+                }
         }
         else if(playerID == 2){
             int row1 = Math.abs(Controller.player2destroyer.xAxisCoordinate / 10);

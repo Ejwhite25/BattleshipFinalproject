@@ -10,6 +10,7 @@ public class Submarine {
     }
 
     void createShip(int playerID){
+        System.out.println("Setting up submarine\n");
         if(playerID == 1){
             int row = Math.abs(Controller.player1submarine.xAxisCoordinate / 10);
             int col = Controller.player1submarine.xAxisCoordinate % 10;

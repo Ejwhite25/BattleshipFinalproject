@@ -54,6 +54,40 @@ public class Player2 {
     public Board getBoard() {
         return board;
     }
+
+    boolean testShip(String ship,int row, int col){
+        switch (ship){
+            case "Battleship" -> {
+                for (int[] ints : Controller.player2battleship.battleShipArray) {
+                    for (int anInt : ints) {
+                        return anInt == Controller.player2battleship.battleShipArray[row][col];
+                    }
+                }
+            }
+            case "Carrier" -> {
+                for (int[] ints : Controller.player2carrier.carrierArray) {
+                    for (int anInt : ints) {
+                        return anInt == Controller.player2carrier.carrierArray[row][col];
+                    }
+                }
+            }
+            case "Submarine" -> {
+                for (int[] ints : Controller.player2submarine.submarineArray) {
+                    for (int anInt : ints) {
+                        return anInt == Controller.player2submarine.submarineArray[row][col];
+                    }
+                }
+            }
+            case "Destroyer" -> {
+                for (int[] ints : Controller.player2destroyer.destroyerArray) {
+                    for (int anInt : ints) {
+                        return anInt == Controller.player2destroyer.destroyerArray[row][col];
+                    }
+                }
+            }
+        }
+        return false;
+    }
     
     void markShipHit(int x, int y){
         ArrayList<String> ships = new ArrayList<String>(4);

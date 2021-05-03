@@ -1,6 +1,6 @@
 public class Controller {
-    static Player1 player1;
-    static Player2 player2;
+    static Player1 player1 = new Player1();
+    static Player2 player2 = new Player2();
     static Carrier player1carrier;
     static Destroyer player1destroyer;
     static Destroyer player2destroyer;
@@ -11,9 +11,10 @@ public class Controller {
     static Carrier player2carrier;
     static Board player1board;
     static Board player1board1;
-    static Board player2board;
+    static Board player2board = player2.getBoard();
 
     public Controller(){
 
     }
+
 }
