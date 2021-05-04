@@ -42,6 +42,7 @@ public class Server {
     void go() throws IOException {
         ServerSocket server = new ServerSocket(7000);
         Socket connectionOne = server.accept();
+        System.out.println("Server>> P1 connected");
         writerSocket = new PrintWriter(connectionOne.getOutputStream());
         writerSocket.println("P1 connected to server");
         writerSocket.flush();
@@ -83,9 +84,8 @@ public class Server {
                     System.out.println("X:" + x);
                     int y = Integer.parseInt(coordinates[1]);
                     System.out.println("Y:" + y);
-                    Turn turn = new Turn(1, x, y);
-                    if (controller.player2.testHit(turn)) {
-                        controller.player1.board.updateBoard("Hit",turn.firstCoordinate,turn.secondCoordinate);
+                    if (controller.player2.testHit(x,y)) {
+                        controller.player1.board.updateBoard("Hit",x,y);
                         sharedMessage = "Player 2 has been hit!";
                         writerSocket.println(sharedMessage);
                         writerSocket.flush();
@@ -100,9 +100,9 @@ public class Server {
                                 writerSocket.flush();
                             }
                         }
-                    } else {
+                    } else if(!controller.player2.testHit(x,y)) {
                         sharedMessage = "Player 1 misses!";
-                        controller.player1.board.updateBoard("Miss",turn.firstCoordinate,turn.secondCoordinate);
+                        controller.player1.board.updateBoard("Miss",x,y);
                         writerSocket.println(sharedMessage);
                         writerSocket.flush();
                     }
@@ -148,7 +148,7 @@ public class Server {
                     int x = Integer.parseInt(coordinates[0]);
                     int y = Integer.parseInt(coordinates[1]);
                     Turn turn = new Turn(2,x,y);
-                    if(controller.player1.testHit(turn)){
+                    if(controller.player1.testHit(x,y)){
                         controller.player2.board.updateBoard("Hit",x,y);
                         sharedMessage = "Player 2 has a hit";
                         writerSocket.println(sharedMessage);

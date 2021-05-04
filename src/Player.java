@@ -1,13 +1,14 @@
 import java.util.ArrayList;
 
 public class Player {
-    public Carrier carrier;
+    Carrier carrier;
     Destroyer destroyer;
     Battleship battleship;
-    Board board;
     Submarine submarine;
+    Board board;
     ArrayList<String> ships = new ArrayList<String>(4);
     public Player(){
+            board = new Board();
             ships.add("Carrier");
             ships.add("Destroyer");
             ships.add("Battleship");
@@ -57,19 +58,20 @@ public class Player {
 
     }
 
-    public boolean testHit(Turn turn) {
-            if(board.board1[turn.firstCoordinate][turn.secondCoordinate] == 1){
-                board.board1[turn.firstCoordinate][turn.secondCoordinate] = 0;
+    public boolean testHit(int x, int y) {
+            if (board.board1[x][y] == 1) {
+                System.out.println("There's been a hit!");
+                board.board1[x][y] = 2;
                 return true;
-            }
-            else{
+            } else{
+                System.out.println("There's been a miss.");
                 return false;
-        }
+            }
     }
 
 
 
-    boolean testShip(String ship,int row, int col){
+    public boolean testShip(String ship,int row, int col){
         switch (ship){
             case "Battleship" -> {
                 for (int[] ints : battleship.battleShipArray) {

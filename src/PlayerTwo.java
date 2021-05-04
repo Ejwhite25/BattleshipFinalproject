@@ -41,12 +41,7 @@ public class PlayerTwo {
     }
     void playerSetup() throws IOException{
         Controller controller = Controller.returnController();
-        int[][] board1 = new int[20][20];
-        int[][] board2 = new int[20][20];
-        for (int[] ints : board2) {
-            Arrays.fill(ints, 0);
-        }
-        Board board = new Board(board1,board2);
+        Board board = new Board();
         controller.player2.setBoard(board);
         for(String ship: controller.player2.ships){
             int x;
@@ -55,9 +50,7 @@ public class PlayerTwo {
                 case "Destroyer" -> {
                     x = (int) (Math.random() * (9) + 0);
                     y = (int) (Math.random() * (9) + 0);
-                    if(controller.player2.getBoard().board1[x][y] == 0) {
-                        System.out.println("Player 2 X:" + x);
-                        System.out.println("PLayer 2 Y:" + y);
+                    if(controller.player2.board.board1[x][y] == 0) {
                         Destroyer destroyer = new Destroyer(x, y);
                         controller.player2.setDestroyer(destroyer);
                         controller.player2.getDestroyer().createShip(2);
@@ -71,29 +64,22 @@ public class PlayerTwo {
                 case "Carrier" -> {
                     x = (int) (Math.random() * (9) + 0);
                     y = (int) (Math.random() * (9) + 0);
-                    if(controller.player2.getBoard().board1[x][y] == 0) {
-                        Carrier carrier = new Carrier(x, y);
+                    if(controller.player2.board.board1[x][y] == 0) {
+                        System.out.println("Player 2 X:" + x);
+                        System.out.println("PLayer 2 Y:" + y);
+                        Carrier carrier = new Carrier(x,y);
                         controller.player2.setCarrier(carrier);
                         controller.player2.getCarrier().createShip(2);
-                    }
-                    else{
-                        x = (int) (Math.random() * (9) + 0);
-                        y = (int) (Math.random() * (9) + 0);
-
                     }
 
                 }
                 case "Battleship" -> {
                     x = (int) (Math.random() * (9) + 0);
                     y = (int) (Math.random() * (9) + 0);
-                    if(controller.player2.getBoard().board1[x][y] == 0) {
+                    if(controller.player2.board.board1[x][y] == 0) {
                         Battleship battleship = new Battleship(x, y);
                         controller.player2.setBattleship(battleship);
                         controller.player2.getBattleship().createShip(2);
-                    }
-                    else{
-                        x = (int) (Math.random() * (9) + 0);
-                        y = (int) (Math.random() * (9) + 0);
                     }
                 }
                 case "Submarine"-> {

@@ -2,9 +2,9 @@ public class Board {
     int[][] board1;
     int[][] board2;
 
-    public Board(int[][] board1set,int[][] board2set){
-        board1 = board1set;
-        board2= board2set;
+    public Board(){
+        board1 = new int[20][20];
+        board2 = new int[20][20];
 
     }
 

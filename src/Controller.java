@@ -1,7 +1,7 @@
 public class Controller {
     Player player1;
     Player player2;
-    private static final Controller controller = new Controller();
+    private static Controller controller = new Controller();
 
     private Controller(){
         player1 = new Player();

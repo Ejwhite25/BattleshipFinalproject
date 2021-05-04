@@ -42,15 +42,7 @@ public class PlayerOne {
     }
     void playerSetup() throws IOException {
         Controller controller = Controller.returnController();
-        int[][] board1 = new int[20][20];
-        int[][] board2 = new int[20][20];
-        for(int[] ints:board1){
-            Arrays.fill(ints,0);
-        }
-        for (int[] ints : board2) {
-            Arrays.fill(ints, 0);
-        }
-        Board board = new Board(board1,board2);
+        Board board = new Board();
         controller.player1.setBoard(board);
         for(String ship:controller.player1.ships){
             int x;
@@ -78,7 +70,7 @@ public class PlayerOne {
                     if(controller.player1.getBoard().board1[x][y] == 0) {
                         System.out.println("X:" + x);
                         System.out.println("Y:" + y);
-                        Carrier carrier = new Carrier(x, y);
+                        Carrier carrier = new Carrier(x,y);
                         controller.player1.setCarrier(carrier);
                         controller.player1.getCarrier().createShip(1);
                     }
@@ -136,7 +128,6 @@ public class PlayerOne {
     }
 
     void receiveRead () throws IOException {
-        guiController.gui.setOutputText("Player1> Enter your guess in the format: X,Y");
         readerSocket = new InputStreamReader(socket.getInputStream());
         bufferedReader = new BufferedReader(readerSocket);
         String line = bufferedReader.readLine();

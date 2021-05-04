@@ -5,7 +5,7 @@ public class Carrier {
     int[][] carrierArray;
     Controller controller = Controller.returnController();
 
-    public Carrier(int x,int y){
+    public Carrier(int x, int y){
         xAxisCoordinate = x;
         yAxisCoordinate = y;
         carrierArray = new int[20][20];
@@ -14,9 +14,6 @@ public class Carrier {
         System.out.println("Setting up carrier");
         if(playerId == 1){
             int row = controller.player1.getCarrier().xAxisCoordinate;
-            if(row <= 10){
-                System.out.println("Row:" + row);
-            }
             int col = controller.player1.getCarrier().yAxisCoordinate;
                 for(int i = col; i <= col + 5; i++) {
                     controller.player1.getBoard().board1[row][i] = 1;
