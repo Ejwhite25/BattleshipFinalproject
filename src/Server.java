@@ -52,7 +52,7 @@ public class Server {
         Socket connectionTwo = server.accept();
         System.out.println("server>> P2 connected");
         writerSocket = new PrintWriter(connectionTwo.getOutputStream());
-        writerSocket.println("P2 connected to server");
+        writerSocket.println("P2 connected to server" );
         writerSocket.flush();
         new Thread(new JobTwo(connectionTwo)).start();
 
@@ -77,6 +77,7 @@ public class Server {
             while(true){
                 writerSocket.println("Player1> Enter your guess in the format: X,Y");
                 writerSocket.flush();
+                Controller.state = false;
                 try {
                     sharedMessage = buffedReader.readLine();
                     String[] coordinates = sharedMessage.split(",");
@@ -95,13 +96,13 @@ public class Server {
                             writerSocket.flush();
                             shipsLeftPlayer2--;
                             if (shipsLeftPlayer2 == 0) {
-                                sharedMessage = "Player 1 has won!";
+                                sharedMessage = "Player 1 has won!" + 50;
                                 writerSocket.println(sharedMessage);
                                 writerSocket.flush();
                             }
                         }
                     } else if(!controller.player2.testHit(x,y)) {
-                        sharedMessage = "Player 1 misses!";
+                        sharedMessage = "Player 1 misses!" + 50;
                         controller.player1.board.updateBoard("Miss",x,y);
                         writerSocket.println(sharedMessage);
                         writerSocket.flush();
@@ -150,16 +151,16 @@ public class Server {
                     Turn turn = new Turn(2,x,y);
                     if(controller.player1.testHit(x,y)){
                         controller.player2.board.updateBoard("Hit",x,y);
-                        sharedMessage = "Player 2 has a hit";
+                        sharedMessage = "Player 2 has a hit" + 50;
                         writerSocket.println(sharedMessage);
                         writerSocket.flush();
                         if(controller.player1.testShip(player2hit,x,y)){
-                            sharedMessage = "Player1s" + player2hit + "is down!";
+                            sharedMessage = "Player1s" + player2hit + "is down!" + 50;
                             writerSocket.println(sharedMessage);
                             writerSocket.flush();
                             shipsLeftPlayer1--;
                             if(shipsLeftPlayer1 == 0){
-                                sharedMessage = "PLayer 2 has won!";
+                                sharedMessage = "PLayer 2 has won!"+ 50;
                                 writerSocket.println(sharedMessage);
                                 writerSocket.flush();
                             }
@@ -167,7 +168,7 @@ public class Server {
                     }
                     else{
                         controller.player2.board.updateBoard("Miss",turn.firstCoordinate,turn.secondCoordinate);
-                        sharedMessage = "PLayer 2 has a miss.";
+                        sharedMessage = "PLayer 2 has a miss." + 50;
                         writerSocket.println(sharedMessage);
                     }
 

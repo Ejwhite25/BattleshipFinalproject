@@ -1,6 +1,7 @@
 public class Controller {
     Player player1;
     Player player2;
+    static boolean state = true;
     private static Controller controller = new Controller();
 
     private Controller(){

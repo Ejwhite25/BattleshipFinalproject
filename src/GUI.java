@@ -24,8 +24,8 @@ public class GUI {
         playerInput = new JTextField();
         serverOutput = new JTextField();
         playerInput.setPreferredSize(new Dimension(200,20));
-        board1Area = new JTextArea(10,40);
-        board2Area = new JTextArea(10,40);
+        board1Area = new JTextArea(20,20);
+        board2Area = new JTextArea(20,20);
         this.boardPanel.add(board1Area);
         this.boardPanel.add(board2Area);
         this.frame.getContentPane().add(BorderLayout.CENTER,this.boardPanel);

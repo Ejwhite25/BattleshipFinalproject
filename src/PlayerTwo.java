@@ -12,6 +12,7 @@ public class PlayerTwo {
     private static PrintWriter writerSocket;
     private static BufferedReader bufferedReader;
     GUIController guiController;
+    Controller controller = Controller.returnController();
     private static boolean state = false;
     boolean setupState = false;
     private ArrayList<String> ships = new ArrayList<String>(4);
@@ -27,20 +28,19 @@ public class PlayerTwo {
             playerSetup();
             socket = new Socket("127.0.0.1", 7000);
             receiveRead();
-            if(state) {
+            if(Controller.state) {
                     writeSend();
-                    state = false;
+                    Controller.state = false;
                 }
                 else {
                     receiveRead();
-                    state = true;
+                    Controller.state = true;
                 }
         }catch (IOException e){
             e.printStackTrace();
         }
     }
     void playerSetup() throws IOException{
-        Controller controller = Controller.returnController();
         Board board = new Board();
         controller.player2.setBoard(board);
         for(String ship: controller.player2.ships){

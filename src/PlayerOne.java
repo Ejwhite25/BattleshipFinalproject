@@ -13,6 +13,7 @@ public class PlayerOne {
     GUIController guiController;
     BufferedReader bufferedReader;
     public static String input;
+    Controller controller = Controller.returnController();
     boolean state = true;
     boolean setupState = false;
     Iterator<String> iterator;
@@ -26,14 +27,15 @@ public class PlayerOne {
             playerSetup();
             socket = new Socket("127.0.0.1", 7000);
             receiveRead();
-            if(state) {
+            while(true) {
+                if (Controller.state) {
                     writeSend();
-                    state = false;
-                }
-                else {
+                    Controller.state = false;
+                } else {
                     receiveRead();
-                    state = true;
+                    Controller.state = true;
                 }
+            }
 
         }catch (IOException e){
             e.printStackTrace();
@@ -41,7 +43,6 @@ public class PlayerOne {
 
     }
     void playerSetup() throws IOException {
-        Controller controller = Controller.returnController();
         Board board = new Board();
         controller.player1.setBoard(board);
         for(String ship:controller.player1.ships){
@@ -128,10 +129,11 @@ public class PlayerOne {
     }
 
     void receiveRead () throws IOException {
+        int x= 100;
         readerSocket = new InputStreamReader(socket.getInputStream());
         bufferedReader = new BufferedReader(readerSocket);
         String line = bufferedReader.readLine();
-        guiController.gui.setOutputText(line);
+        String[] output = line.split("!");
     }
 }
 
