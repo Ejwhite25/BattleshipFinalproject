@@ -2,71 +2,53 @@ public class Submarine {
     int xAxisCoordinate;
     int yAxisCoordinate;
     int[][] submarineArray;
+    Controller controller = Controller.returnController();
 
-    public Submarine(int x,int y){
+    public Submarine(int x, int y) {
         this.xAxisCoordinate = x;
         this.yAxisCoordinate = y;
-        submarineArray = new int[10][10];
+        submarineArray = new int[20][20];
     }
 
-    void createShip(int playerID){
+    void createShip(int playerID) {
         System.out.println("Setting up submarine\n");
-        if(playerID == 1){
-            int row = Math.abs(Controller.player1submarine.xAxisCoordinate / 10);
-            int col = Controller.player1submarine.xAxisCoordinate % 10;
-            int lastRow = Math.abs(Controller.player1submarine.yAxisCoordinate / 10);
-            int lastCol = Controller.player1submarine.yAxisCoordinate % 10;;
-            if (col == lastCol) {
-                for(int i = col; i <= lastCol; i++) {
-                    Controller.player1board.board[row][i] = 1;
-                    Controller.player1submarine.submarineArray[row][i] = 1;
+        if (playerID == 1) {
+            int row = controller.player1.getSubmarine().xAxisCoordinate;
+            int col = controller.player1.getSubmarine().yAxisCoordinate;
+                for (int i = col; i <= col + 3; i++) {
+                    controller.player1.getBoard().board1[row][i] = 1;
+                    controller.player1.getSubmarine().submarineArray[row][i] = 1;
                 }
-            }
-            else if(row == lastRow){
-                for(int i = row; i <= lastRow; i++){
-                    Controller.player1board.board[i][col] = 1;
-                    Controller.player1submarine.submarineArray[i][col] = 1;
-                }
-            }
 
-        }
-        else if(playerID == 2){
-            int row1 = Math.abs(Controller.player2submarine.xAxisCoordinate / 10);
-            int col1 = Controller.player2submarine.xAxisCoordinate % 10;
-            int lastRow1 = Math.abs(Controller.player2submarine.yAxisCoordinate / 10);
-            int lastCol1 = Controller.player2submarine.yAxisCoordinate % 10;;
-            if (col1 == lastCol1) {
-                for(int i = col1; i <= lastCol1; i++) {
-                    Controller.player2board.board[row1][i] = 1;
-                    Controller.player2submarine.submarineArray[row1][i] = 1;
-                }
+        } else if (playerID == 2) {
+            int row1 = controller.player2.getSubmarine().xAxisCoordinate;
+            int col1 = controller.player2.getSubmarine().yAxisCoordinate;
+            for (int i = col1; i <= col1 + 3; i++) {
+                controller.player2.getBoard().board1[row1][i] = 1;
+                controller.player2.getSubmarine().submarineArray[row1][i] = 1;
             }
-            else if(row1 == lastRow1){
-                for(int i = row1; i <= lastRow1; i++){
-                    Controller.player2board.board[i][col1] = 1;
-                    Controller.player2submarine.submarineArray[i][col1] = 1;
-                }
-            }
-
         }
     }
-    public Boolean testHit(int playerId,int row, int col){
-        if(playerId == 1)
-            for (int[] ints : Controller.player1submarine.submarineArray) {
+
+    public Boolean testHit(int playerId, int row, int col) {
+        if (playerId == 1) {
+            for (int[] ints : controller.player1.getSubmarine().submarineArray) {
                 for (int anInt : ints) {
-                    return anInt == Controller.player1submarine.submarineArray[row][col];
+                    return anInt == controller.player1.getSubmarine().submarineArray[row][col];
                 }
                 return null;
             }
-        else if(playerId == 2){
-            for (int[] ints : Controller.player2submarine.submarineArray) {
-                for (int anInt : ints) {
-                    return anInt == Controller.player2submarine.submarineArray[row][col];
-                }
-            }
-
         }
-        return null;
+        else if (playerId == 2) {
+                for (int[] ints : controller.player2.getSubmarine().submarineArray) {
+                    for (int anInt : ints) {
+                        return anInt == controller.player2.getSubmarine().submarineArray[row][col];
+                    }
+                }
+
+            }
+            return null;
+        }
     }
-}
+
 

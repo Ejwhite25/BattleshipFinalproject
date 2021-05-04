@@ -1,70 +1,50 @@
 public class Carrier {
 
-    public int xAxisCoordinate;
-    public int yAxisCoordinate;
-    public int[][] carrierArray;
+    int xAxisCoordinate;
+    int yAxisCoordinate;
+    int[][] carrierArray;
+    Controller controller = Controller.returnController();
 
     public Carrier(int x,int y){
         xAxisCoordinate = x;
         yAxisCoordinate = y;
-        carrierArray = new int[10][10];
+        carrierArray = new int[20][20];
     }
-
-
-    
     void createShip(int playerId){
         System.out.println("Setting up carrier");
         if(playerId == 1){
-            int row = Math.abs(Controller.player1carrier.xAxisCoordinate/10);
-            int col = Controller.player1carrier.xAxisCoordinate % 10;
-            int lastRow = Math.abs(Controller.player1carrier.yAxisCoordinate/10);
-            int lastCol = Controller.player1carrier.yAxisCoordinate % 10;
-            if (row == lastRow) {
-                for(int i = col; i <= lastCol; i++) {
-                    Controller.player1board.board[row][i] = 1;
-                    Controller.player1carrier.carrierArray[row][i] = 1;
+            int row = controller.player1.getCarrier().xAxisCoordinate;
+            if(row <= 10){
+                System.out.println("Row:" + row);
+            }
+            int col = controller.player1.getCarrier().yAxisCoordinate;
+                for(int i = col; i <= col + 5; i++) {
+                    controller.player1.getBoard().board1[row][i] = 1;
+                    controller.player1.getCarrier().carrierArray[row][i] = 1;
                 }
             }
-            else if(col == lastCol){
-                for(int i = row; i <= lastRow; i++){
-                    Controller.player1board.board[i][col] = 1;
-                    Controller.player1carrier.carrierArray[i][col] = 1;
-                }
-            }
-
-        }
         else if(playerId == 2){
-            int row1 = Math.abs(Controller.player2carrier.xAxisCoordinate / 10);
-            int col1 = Controller.player2carrier.xAxisCoordinate % 10;
-            int lastRow1 = Math.abs(Controller.player2carrier.yAxisCoordinate / 10);
-            int lastCol1 = Controller.player2carrier.yAxisCoordinate % 10;
-            if (col1 == lastCol1) {
-                for(int i = col1; i <= lastCol1; i++) {
-                    Controller.player2board.board1[row1][i] = 1;
-                    Controller.player2carrier.carrierArray[row1][i] = 1;
+            int row1 = controller.player2.getCarrier().xAxisCoordinate;
+            int col1 = controller.player2.getCarrier().yAxisCoordinate;
+                for(int i = col1; i <= col1 + 5; i++) {
+                    controller.player2.getBoard().board1[row1][i] = 1;
+                    controller.player2.getCarrier().carrierArray[row1][i] = 1;
                 }
-            }
-            else if(row1 == lastRow1){
-                for(int i = row1; i <= lastRow1; i++){
-                    Controller.player2board.board1[i][col1] = 1;
-                    Controller.player2carrier.carrierArray[i][col1] = 1;
-                }
-            }
 
         }
     }
     public Boolean testHit(int playerId,int row, int col){
         if(playerId == 1)
-            for (int[] ints : Controller.player1carrier.carrierArray) {
+            for (int[] ints : controller.player1.getCarrier().carrierArray) {
                 for (int anInt : ints) {
-                    return anInt == Controller.player1carrier.carrierArray[row][col];
+                    return anInt == controller.player1.getCarrier().carrierArray[row][col];
                 }
                 return null;
             }
         else if(playerId == 2){
-            for (int[] ints : Controller.player2carrier.carrierArray) {
+            for (int[] ints : controller.player2.getCarrier().carrierArray) {
                 for (int anInt : ints) {
-                    return anInt == Controller.player2carrier.carrierArray[row][col];
+                    return anInt == controller.player2.getCarrier().carrierArray[row][col];
                 }
             }
 

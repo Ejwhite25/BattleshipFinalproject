@@ -1,20 +1,16 @@
 public class Controller {
-    static Player1 player1 = new Player1();
-    static Player2 player2 = new Player2();
-    static Carrier player1carrier;
-    static Destroyer player1destroyer;
-    static Destroyer player2destroyer;
-    static Submarine player1submarine;
-    static Submarine player2submarine;
-    static Battleship player1battleship;
-    static Battleship player2battleship;
-    static Carrier player2carrier;
-    static Board player1board;
-    static Board player1board1;
-    static Board player2board = player2.getBoard();
+    Player player1;
+    Player player2;
+    private static final Controller controller = new Controller();
 
-    public Controller(){
+    private Controller(){
+        player1 = new Player();
+        player2 = new Player();
 
     }
+    public static Controller returnController(){
+        return controller;
+    }
+
 
 }
