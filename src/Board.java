@@ -3,8 +3,8 @@ public class Board {
     int[][] board2;
 
     public Board(){
-        board1 = new int[20][20];
-        board2 = new int[20][20];
+        this.board1 = new int[20][20];
+        this.board2 = new int[20][20];
 
     }
 
@@ -13,7 +13,7 @@ public class Board {
             board2[x][y] = 1;
         }
         else if(type.equals("miss")){
-            board2[x][y] = '\0';
+            board2[x][y] = '0';
         }
     }
 

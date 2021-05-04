@@ -17,7 +17,7 @@ public class Battleship {
             int col = controller.player1.getBattleship().yAxisCoordinate;
             int lastCol = controller.player1.getBattleship().yAxisCoordinate;
                 for (int i = col; i <= lastCol + 4; i++) {
-                    controller.player1.getBoard().board1[row][i] = 1;
+                    controller.player1.board1[row][i] = 1;
                     controller.player1.getBattleship().battleShipArray[row][i] = 1;
                 }
             }
@@ -26,7 +26,7 @@ public class Battleship {
             int col1 = controller.player2.getBattleship().xAxisCoordinate;
             int lastCol1 = controller.player2.getBattleship().yAxisCoordinate;
             for (int i = col1; i <= lastCol1 + 4; i++) {
-                controller.player2.getBoard().board1[row1][i] = 1;
+                controller.player2.board1[row1][i] = 1;
                 controller.player2.getBattleship().battleShipArray[row1][i] = 1;
             }
         }

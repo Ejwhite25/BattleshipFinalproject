@@ -6,15 +6,22 @@ public class Player {
     Battleship battleship;
     Submarine submarine;
     Board board;
+    int[][] board1;
+    int[][] board2;
     ArrayList<String> ships = new ArrayList<String>(4);
     public Player(){
-            board = new Board();
+            board1 = new int[20][20];
             ships.add("Carrier");
             ships.add("Destroyer");
             ships.add("Battleship");
             ships.add("Submarine");
 
     }
+
+    public int randomNumber(){
+        return (int) (Math.random() * (9) + 1);
+    }
+
 
     public void setSubmarine(Submarine subSet){
         submarine = subSet;
@@ -49,22 +56,34 @@ public class Player {
         return destroyer;
     }
 
-    public void setBoard(Board boardSet){
-        board = boardSet;
+    public void displayBoard(GUIController guiController) {
+        StringBuilder grid = new StringBuilder();
+        StringBuilder grid1 = new StringBuilder();
+        for(int x = 0; x < board1.length; x++) {
+            grid.append(x);
+            for (int y =0; y < board1[x].length; y++){
+                grid.append("[").append(board1[x][y]).append("]");
+                grid.append(" ");
+            }
+            grid.append("\n");
+        }
+        guiController.gui.board1Area.setText(String.valueOf(grid));
+        for(int i =0; i < board2.length; i++){
+            for(int j =0; j < board2[i].length; j++){
+                grid1.append("[").append(board2[i][j]).append("]");
+                grid.append(" ");
+            }
+            grid1.append("\n");
+        }
+        guiController.gui.board2Area.setText(String.valueOf(grid1));
+
     }
 
-    public Board getBoard(){
-        return board;
-
-    }
 
     public boolean testHit(int x, int y) {
-            if (board.board1[x][y] == 1) {
-                System.out.println("There's been a hit!");
-                board.board1[x][y] = 2;
+            if (board1[x][y] == 1) {
                 return true;
             } else{
-                System.out.println("There's been a miss.");
                 return false;
             }
     }

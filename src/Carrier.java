@@ -1,9 +1,9 @@
 public class Carrier {
 
-    int xAxisCoordinate;
-    int yAxisCoordinate;
     int[][] carrierArray;
     Controller controller = Controller.returnController();
+    private int xAxisCoordinate;
+    private int yAxisCoordinate;
 
     public Carrier(int x, int y){
         xAxisCoordinate = x;
@@ -16,17 +16,20 @@ public class Carrier {
             int row = controller.player1.getCarrier().xAxisCoordinate;
             int col = controller.player1.getCarrier().yAxisCoordinate;
                 for(int i = col; i <= col + 5; i++) {
-                    controller.player1.getBoard().board1[row][i] = 1;
-                    controller.player1.getCarrier().carrierArray[row][i] = 1;
+                    controller.player1.board1[row][i] = 1;
+                    controller.player1.carrier.carrierArray[row][i] = 1;
                 }
             }
         else if(playerId == 2){
             int row1 = controller.player2.getCarrier().xAxisCoordinate;
             int col1 = controller.player2.getCarrier().yAxisCoordinate;
-                for(int i = col1; i <= col1 + 5; i++) {
-                    controller.player2.getBoard().board1[row1][i] = 1;
-                    controller.player2.getCarrier().carrierArray[row1][i] = 1;
-                }
+            for(int i = col1; i <= col1+5; i++) {
+                System.out.println("PLayer 2 X:" + row1);
+                System.out.println("Player 2 Y:" + i);
+                controller.player2.board1[row1][i] = 1;
+                controller.player2.getCarrier().carrierArray[row1][i] = 1;
+            }
+
 
         }
     }

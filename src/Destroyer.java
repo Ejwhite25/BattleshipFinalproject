@@ -18,7 +18,7 @@ public class Destroyer {
             int col = controller.player1.getDestroyer().xAxisCoordinate;
             int lastCol = controller.player1.getDestroyer().yAxisCoordinate;
             for(int i = col; i <= lastCol + 4; i++) {
-                controller.player1.getBoard().board1[row][i] = 1;
+                controller.player1.board1[row][i] = 1;
                 controller.player1.getDestroyer().destroyerArray[row][i] = 1;
             }
         }
@@ -26,7 +26,7 @@ public class Destroyer {
             int row1 = controller.player2.getDestroyer().xAxisCoordinate;
             int col1 = controller.player2.getDestroyer().yAxisCoordinate;
                 for(int i = col1; i <= col1 + 4; i++) {
-                   controller.player2.getBoard().board1[row1][i] = 1;
+                   controller.player2.board1[row1][i] = 1;
                    controller.player2.getDestroyer().destroyerArray[row1][i] = 1;
                 }
             }
