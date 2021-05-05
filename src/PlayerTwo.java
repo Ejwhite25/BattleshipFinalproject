@@ -56,7 +56,10 @@ public class PlayerTwo {
                     x = (int) (Math.random() * (9) + 1);
                     y = (int) (Math.random() * (9) + 1);
                     Carrier carrier = new Carrier(x,y);
+                    System.out.println("X:" + x);
+                    System.out.println("Y:" + y);
                     controller.player2.setCarrier(carrier);
+                    controller.player2.board.createShip(x,y);
                     controller.player2.carrier.createShip(2);
 
                 }

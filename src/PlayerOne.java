@@ -50,7 +50,7 @@ public class PlayerOne {
                 case "Destroyer" -> {
                     x = (int) (Math.random() * (9) + 0);
                     y = (int) (Math.random() * (9) + 0);
-                    if(controller.player1.board1[x][y] == 0) {
+                    if(controller.player1.board.board1[x][y] == 0) {
                         System.out.println("X:" + x);
                         System.out.println("Y:" + y);
                         Destroyer destroyer = new Destroyer(x, y);
@@ -66,11 +66,12 @@ public class PlayerOne {
                 case "Carrier" -> {
                     x = (int) (Math.random() * (9) + 1);
                     y = (int) (Math.random() * (9) + 1);
-                    if(controller.player1.board1[x][y] == 0) {
+                    if(controller.player1.board.board1[x][y] == 0) {
                         System.out.println("X:" + x);
                         System.out.println("Y:" + y);
                         Carrier carrier = new Carrier(x,y);
                         controller.player1.setCarrier(carrier);
+                        controller.player1.board.createShip(x,y);
                         controller.player1.carrier.createShip(1);
                     }
                     else{
@@ -83,7 +84,7 @@ public class PlayerOne {
                 case "Battleship" -> {
                     x = (int) (Math.random() * (9) + 0);
                     y = (int) (Math.random() * (9) + 0);
-                    if(controller.player1.board1[x][y] == 0) {
+                    if(controller.player1.board.board1[x][y] == 0) {
                         System.out.println("X:" + x);
                         System.out.println("Y:" + y);
                         Battleship battleship = new Battleship(x, y);
@@ -98,7 +99,7 @@ public class PlayerOne {
                 case "Submarine"-> {
                     x = (int) (Math.random() * (9) + 0);
                     y = (int) (Math.random() * (9) + 0);
-                    if(controller.player1.board1[x][y] == 0) {
+                    if(controller.player1.board.board1[x][y] == 0) {
                         System.out.println("X:" + x);
                         System.out.println("Y:" + y);
                         Submarine submarine = new Submarine(x, y);

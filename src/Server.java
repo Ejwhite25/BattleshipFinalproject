@@ -80,13 +80,9 @@ public class Server {
                     sharedMessage = buffedReader.readLine();
                     String[] coordinates = sharedMessage.split(",");
                     int x = Integer.parseInt(coordinates[0]);
-                    System.out.println("X:" + x);
                     int y = Integer.parseInt(coordinates[1]);
-                    System.out.println("Y:" + y);
-                    Turn turn = new Turn(1,x,y);
-                    if (turn.testHit(1,x,y)){
-                        System.out.println("Hit");
-                        /*controller.player1.board.updateBoard("Hit",x,y);*/
+                    if (controller.player2.testShip("Carrier",x,y)){
+                        controller.player1.board.updateBoard("Hit",x,y);
                         sharedMessage = "Player 2 has been hit!";
                         writerSocket.println(sharedMessage);
                         writerSocket.flush();
@@ -146,12 +142,11 @@ public class Server {
                     sharedMessage = buffedReader.readLine();
                     String[] coordinates = sharedMessage.split(",");
                     int x = Integer.parseInt(coordinates[0]);
-                    int y = Integer.parseInt(coordinates[1]);
-                    Turn turn = new Turn(2,x,y);
+                    int y = Integer.parseInt(coordinates[1]);;
                     System.out.println("Player 2 X:" + x);
                     System.out.println("PLayer 2 Y:" + y);
-                    Turn turn2 = new Turn(2,x,y);
-                    if(turn2.testHit(2,x,y)){
+                    Coordinate coordinate = new Coordinate(x,y);
+                    if(controller.player1.getCarrier().testCarrierHit(2,x,y)){
                         controller.player2.board.updateBoard("Hit",x,y);
                         sharedMessage = "Player 2 has a hit" + 50;
                         writerSocket.println(sharedMessage);
@@ -169,7 +164,7 @@ public class Server {
                         }
                     }
                     else{
-                        controller.player2.board.updateBoard("Miss",turn.firstCoordinate,turn.secondCoordinate);
+                        controller.player2.board.updateBoard("Miss",x,y);
                         sharedMessage = "PLayer 2 has a miss.";
                         writerSocket.println(sharedMessage);
                     }

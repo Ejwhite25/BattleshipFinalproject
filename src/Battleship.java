@@ -11,13 +11,12 @@ public class Battleship {
     }
 
     void createShip(int playerID) {
-        System.out.println("Setting up battleship for Player" + playerID);
         if (playerID == 1) {
             int row = controller.player1.getBattleship().xAxisCoordinate;
             int col = controller.player1.getBattleship().yAxisCoordinate;
             int lastCol = controller.player1.getBattleship().yAxisCoordinate;
                 for (int i = col; i <= lastCol + 4; i++) {
-                    controller.player1.board1[row][i] = 1;
+                    controller.player1.board.board1[row][i] = 1;
                     controller.player1.getBattleship().battleShipArray[row][i] = 1;
                 }
             }
@@ -26,7 +25,7 @@ public class Battleship {
             int col1 = controller.player2.getBattleship().xAxisCoordinate;
             int lastCol1 = controller.player2.getBattleship().yAxisCoordinate;
             for (int i = col1; i <= lastCol1 + 4; i++) {
-                controller.player2.board1[row1][i] = 1;
+                controller.player2.board.board1[row1][i] = 1;
                 controller.player2.getBattleship().battleShipArray[row1][i] = 1;
             }
         }

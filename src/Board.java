@@ -1,11 +1,13 @@
+import java.util.TreeMap;
 public class Board {
-    int[][] board1;
-    int[][] board2;
+    public int[][] board1;
+    public int[][] board2;
+
+
 
     public Board(){
-        this.board1 = new int[20][20];
-        this.board2 = new int[20][20];
-
+        board1 = new int[20][20];
+        board2 = new int[20][20];
     }
 
     public void updateBoard(String type,int x , int y){
@@ -17,8 +19,27 @@ public class Board {
         }
     }
 
+    public void createShip(int x,int y){
+        int row = x;
+        int col = y;
+        for(int i =col; i < col + 4; i++){
+            board1[row][i-1] = 1;
+        }
+        System.out.println("X:" + x);
+        System.out.println("Y:" + y);
+    }
 
-
+    public boolean testHit(int x, int y){
+        if(board1[x][y] == 1){
+            board1[x][y] = 5;
+            System.out.println("Its a hit!");
+            return true;
+        }
+        else{
+            System.out.println("It's a miss");
+            return false;
+        }
+    }
 
 
     public void displayBoard(GUIController guiController) {
@@ -27,6 +48,7 @@ public class Board {
         for(int x = 0; x < board1.length; x++) {
             grid.append(x);
             for (int y =0; y < board1[x].length; y++){
+                grid.append(y);
                 grid.append("[").append(board1[x][y]).append("]");
                 grid.append(" ");
             }
