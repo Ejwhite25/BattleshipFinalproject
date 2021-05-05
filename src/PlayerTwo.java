@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PlayerTwo {
-    private Socket socket;
+    private static Socket socket;
     private static InputStreamReader readerSocket;
     private static PrintWriter writerSocket;
     private static BufferedReader bufferedReader;
@@ -22,18 +22,23 @@ public class PlayerTwo {
         new PlayerTwo().go();
     }
 
+
     private void go(){
         guiController = new GUIController();
         try {
-            socket = new Socket("127.0.0.1", 9000);
+            socket = new Socket("127.0.0.1", 5000);
             receiveRead();
             while (true) {
-                if (Controller.state) {
+                if(!socket.isConnected()){
+                    socket.close();
+                    System.exit(0);
+                }
+                if (Controller.state1) {
                     writeSend();
-                    Controller.state = true;
+                    Controller.state1 = true;
                 } else {
                     receiveRead();
-                    Controller.state = false;
+                    Controller.state1 = false;
                 }
             }
         }catch (IOException e){

@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.Socket;
 
 public class GUIController {
     String inputLine;
@@ -17,6 +18,7 @@ public class GUIController {
         @Override
         public void actionPerformed(ActionEvent e) {
             inputLine = gui.getInputText();
+            gui.playerInput = null;
 
         }
     }
@@ -25,7 +27,7 @@ public class GUIController {
         public leaveButtonActionListener(){}
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            System.exit(0);
         }
     }
 

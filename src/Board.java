@@ -3,8 +3,6 @@ import java.util.TreeMap;
 public class Board {
     public int[][] board1 = null;
     public int[][] board2;
-    public int[][] board1Copy;
-
     public Board() {
         board1 = new int[20][20];
         board2 = new int[20][20];

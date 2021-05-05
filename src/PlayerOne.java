@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 public class PlayerOne {
-    Socket socket;
+    public static Socket socket;
     InputStreamReader readerSocket;
     PrintWriter writerSocket;
     BufferedReader bufferedReader;
@@ -23,7 +23,7 @@ public class PlayerOne {
     private void go(){
         guiController = new GUIController();
         try {
-            socket = new Socket("127.0.0.1", 9000);
+            socket = new Socket("127.0.0.1", 5000);
             receiveRead();
             while(true) {
                 if (Controller.state) {
@@ -53,6 +53,10 @@ public class PlayerOne {
         readerSocket = new InputStreamReader(socket.getInputStream());
         bufferedReader = new BufferedReader(readerSocket);
         String line = bufferedReader.readLine();
+        if(line == null){
+            socket.close();
+            System.exit(0);
+        }
         guiController.gui.setOutputText(line);
         controller.player1.displayBoard(guiController);
 

@@ -8,7 +8,7 @@ import java.net.Socket;
 
 
 public class Server {
-    private static PrintWriter writerSocket;
+    public static PrintWriter writerSocket;
     private static BufferedReader buffedReader;
     public static String player1shipHit;
     Controller controller = Controller.returnController();
@@ -17,10 +17,10 @@ public class Server {
     int shipsLeftPlayer2 = 4;
     public static String player2hit;
     private static InputStreamReader readerSocket;
-    private final Object lock= new Object();
+    private final Object lock = new Object();
 
-    void waitForLock(){
-        synchronized (lock){
+    void waitForLock() {
+        synchronized (lock) {
             try {
                 lock.wait();
 
@@ -30,8 +30,8 @@ public class Server {
         }
     }
 
-    void notifyLock(){
-        synchronized (lock){
+    void notifyLock() {
+        synchronized (lock) {
             lock.notify();
         }
     }
@@ -39,8 +39,9 @@ public class Server {
     public static void main(String[] args) throws IOException {
         new Server().go();
     }
+
     void go() throws IOException {
-        ServerSocket server = new ServerSocket(9000);
+        ServerSocket server = new ServerSocket(5000);
         Socket connectionOne = server.accept();
         controller.player1.setUp();
         System.out.println("Server>> P1 connected");
@@ -66,6 +67,7 @@ public class Server {
         JobOne(Socket name) {
             socket = name;
         }
+
         @Override
         public void run() {
             try {
@@ -75,19 +77,30 @@ public class Server {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            while(true){
+            while (true) {
                 Controller.state = false;
+                if(!socket.isConnected()){
+                    try {
+                        socket.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 try {
                     sharedMessage = buffedReader.readLine();
+                    if(buffedReader.readLine() == null){
+                        socket.close();
+                        System.exit(0);
+                    }
 
-                } catch(IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 String[] coordinates = sharedMessage.split(",");
                 int x = Integer.parseInt(coordinates[0]);
                 int y = Integer.parseInt(coordinates[1]);
-                if (controller.player2.board.testHit(x,y)){
-                    controller.player1.board.updateBoard("Hit",x,y);
+                if (controller.player2.board.testHit(x, y)) {
+                    controller.player1.board.updateBoard("Hit", x, y);
                     sharedMessage = "Player 2 has been hit!";
                     writerSocket.println(sharedMessage);
                     writerSocket.flush();
@@ -98,7 +111,7 @@ public class Server {
                             sharedMessage = "Player 1 has won!";
                         }
                     }
-                } else {
+                } else if (!controller.player2.board.testHit(x, y)) {
                     sharedMessage = "Player 1 misses!";
                 }
                 try {
@@ -121,9 +134,11 @@ public class Server {
         JobTwo(Socket name) {
             socket = name;
         }
+
         @Override
         public void run() {
             try {
+                writerSocket = new PrintWriter((socket.getOutputStream()));
                 readerSocket = new InputStreamReader(socket.getInputStream());
                 buffedReader = new BufferedReader(readerSocket);
             } catch (IOException e) {
@@ -132,35 +147,51 @@ public class Server {
             while (true) {
                 waitForLock();
                 writerSocket.println(sharedMessage);
-                writerSocket.println("Player2> Enter the coordinates in the format X,Y:");
                 writerSocket.flush();
-                try {
-                    sharedMessage = buffedReader.readLine();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                String[] coordinates = sharedMessage.split(",");
-                int x = Integer.parseInt(coordinates[0]);
-                int y = Integer.parseInt(coordinates[1]);;
-                System.out.println("Player 2 X:" + x);
-                System.out.println("PLayer 2 Y:" + y);
-                Coordinate coordinate = new Coordinate(x,y);
-                if(controller.player1.board.testHit(x,y)){
-                    controller.player2.board.updateBoard("Hit",x,y);
-                    sharedMessage = "Player 2 has a hit";
-                    if(controller.player1.testShip(player2hit,x,y)){
-                        sharedMessage = "Player1s" + player2hit + "is down!" + 50;
-                        shipsLeftPlayer1--;
-                        if(shipsLeftPlayer1 == 0){
-                            sharedMessage = "PLayer 2 has won!";
+                while (true) {
+                    Controller.state1 = false;
+                    writerSocket.println("Player2> Enter the coordinates in the format X,Y:");
+                    writerSocket.flush();
+                    if(!socket.isConnected()){
+                        try {
+                            socket.close();
+                            System.exit(0);
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
+
                     }
+                    try {
+                        sharedMessage = buffedReader.readLine();
+                        if(sharedMessage == null){
+                            socket.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    String[] coordinates = sharedMessage.split(",");
+                    int x = Integer.parseInt(coordinates[0]);
+                    int y = Integer.parseInt(coordinates[1]);
+                    ;
+                    System.out.println("Player 2 X:" + x);
+                    System.out.println("PLayer 2 Y:" + y);
+                    Coordinate coordinate = new Coordinate(x, y);
+                    if (controller.player1.board.testHit(x, y)) {
+                        controller.player2.board.updateBoard("Hit", x, y);
+                        sharedMessage = "Player 2 has a hit";
+                        if (controller.player1.testShip(player2hit, x, y)) {
+                            sharedMessage = "Player1s" + player2hit + "is down!" + 50;
+                            shipsLeftPlayer1--;
+                            if (shipsLeftPlayer1 == 0) {
+                                sharedMessage = "PLayer 2 has won!";
+                            }
+                        }
+                    } else {
+                        controller.player2.board.updateBoard("Miss", x, y);
+                        sharedMessage = "PLayer 2 has a miss.";
+                    }
+                    notifyLock();
                 }
-                else{
-                    controller.player2.board.updateBoard("Miss",x,y);
-                    sharedMessage = "PLayer 2 has a miss.";
-                }
-                notifyLock();
             }
         }
     }
