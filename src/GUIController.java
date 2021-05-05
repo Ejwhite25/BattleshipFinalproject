@@ -5,6 +5,7 @@ public class GUIController {
     String inputLine;
     GUI gui;
 
+
     public GUIController(){
         gui = new GUI();
         this.gui.setEnterButtonActionListener(new GUIController.enterButtonActionListener());
@@ -24,7 +25,6 @@ public class GUIController {
         public leaveButtonActionListener(){}
         @Override
         public void actionPerformed(ActionEvent e) {
-
 
         }
     }

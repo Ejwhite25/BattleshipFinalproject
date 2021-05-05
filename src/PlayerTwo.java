@@ -30,10 +30,10 @@ public class PlayerTwo {
             while (true) {
                 if (Controller.state) {
                     writeSend();
-                    Controller.state = false;
+                    Controller.state = true;
                 } else {
                     receiveRead();
-                    Controller.state = true;
+                    Controller.state = false;
                 }
             }
         }catch (IOException e){
@@ -53,11 +53,11 @@ public class PlayerTwo {
     }
 
     private void receiveRead() throws IOException {
-        controller.player2.displayBoard(guiController);
         readerSocket = new InputStreamReader(socket.getInputStream());
         bufferedReader = new BufferedReader(readerSocket);
         String line = bufferedReader.readLine();
         guiController.gui.setOutputText(line);
+        controller.player2.displayBoard(guiController);
     }
 
 }

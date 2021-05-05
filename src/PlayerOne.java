@@ -46,6 +46,7 @@ public class PlayerOne {
         writerSocket = new PrintWriter(socket.getOutputStream());
         writerSocket.println(input);
         writerSocket.flush();
+        controller.player1.displayBoard(guiController);
     }
 
     void receiveRead () throws IOException {
