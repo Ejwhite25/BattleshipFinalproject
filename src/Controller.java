@@ -5,8 +5,8 @@ public class Controller {
     static Controller controller = new Controller();
 
     private Controller(){
-        this.player1 = new Player();
-        this.player2 = new Player();
+        this.player1 = new Player(1);
+        this.player2 = new Player(2);
 
 
     }

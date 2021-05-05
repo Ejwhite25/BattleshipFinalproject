@@ -1,14 +1,20 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Player {
     Destroyer destroyer;
     Battleship battleship;
     Submarine submarine;
     Board board;
+    int[][] board1;
     Turn turn;
+    int playerId;
+    boolean guiState;
     Carrier carrier;
     ArrayList<String> ships = new ArrayList<String>(4);
-    public Player(){
+    public Player(int playerIdSet){
+            board1 = new int[20][20];
+            playerId = playerIdSet;
             board = new Board();
             turn = new Turn();
             ships.add("Carrier");
@@ -49,14 +55,83 @@ public class Player {
     public Destroyer getDestroyer() {
         return destroyer;
     }
-
-    public void setBoard(Board boardSet){
-        board = boardSet;
-    }
     public Board getBoard(){
         return board;
     }
 
+    public void setUp(){
+        for (String ship : ships) {
+            int x;
+            int y;
+            switch (ship) {
+                case "Destroyer" -> {
+                    x = (int) (Math.random() * (9) + 0);
+                    y = (int) (Math.random() * (9) + 0);
+                    if (board.board1[x][y] == 0) {
+                        Destroyer destroyer = new Destroyer(x, y);
+                         setDestroyer(destroyer);
+                         getDestroyer().createShip(playerId);
+                    } else {
+                        x = (int) (Math.random() * (9) + 0);
+                        y = (int) (Math.random() * (9) + 0);
+
+                    }
+                }
+                case "Carrier" -> {
+                    x = (int) (Math.random() * (9) + 1);
+                    y = (int) (Math.random() * (9) + 1);
+                    if (board.board1[x][y] == 0) {
+                        Carrier carrier = new Carrier(x, y);
+                        setCarrier(carrier);
+                        getCarrier().createShip(playerId);
+                    } else {
+                        x = (int) (Math.random() * (9) + 0);
+                        y = (int) (Math.random() * (9) + 0);
+
+                    }
+                }
+                case "Battleship" -> {
+                    x = (int) (Math.random() * (9) + 0);
+                    y = (int) (Math.random() * (9) + 0);
+                    if (board.board1[x][y] == 0) {
+                        System.out.println("X:" + x);
+                        System.out.println("Y:" + y);
+                        Battleship battleship = new Battleship(x, y);
+                        setBattleship(battleship);
+                        getBattleship().createShip(playerId);
+                    } else {
+                        x = (int) (Math.random() * (9) + 0);
+                        y = (int) (Math.random() * (9) + 0);
+                    }
+                }
+                case "Submarine" -> {
+                    x = (int) (Math.random() * (9) + 0);
+                    y = (int) (Math.random() * (9) + 0);
+                    if (board.board1[x][y] == 0) {
+                        System.out.println("X:" + x);
+                        System.out.println("Y:" + y);
+                        Submarine submarine = new Submarine(x, y);
+                        setSubmarine(submarine);
+                        getSubmarine().createShip(playerId);
+                    } else {
+                        x = (int) (Math.random() * (9) + 0);
+                        y = (int) (Math.random() * (9) + 0);
+                        System.out.println("Error checking...\n");
+                    }
+
+                }
+            }
+        }
+    }
+
+    public void printBoard(){
+        System.out.println("Attempting to print");
+        for(int x = 0; x < board.board1.length; x++) {
+            for (int y =0; y < board.board1[x].length; y++){
+              System.out.println(board.board1[x][y]);
+            }
+        }
+    }
 
     public void displayBoard(GUIController guiController) {
         StringBuilder grid = new StringBuilder();
@@ -71,7 +146,7 @@ public class Player {
         }
         guiController.gui.board1Area.setText(String.valueOf(grid));
         for(int i =0; i < board.board2.length; i++){
-            for(int j =0; j < board.board2[i].length; j++){
+            for(int j =0; j < board.board2.length; j++){
                 grid1.append("[").append(board.board2[i][j]).append("]");
                 grid.append(" ");
             }
@@ -82,13 +157,6 @@ public class Player {
     }
 
 
-    public boolean testHit(int x, int y) {
-            if (board.board1[x][y] == 1) {
-                return true;
-            } else{
-                return false;
-            }
-    }
 
 
 
@@ -102,11 +170,12 @@ public class Player {
                 }
             }
             case "Carrier" -> {
-                        if(carrier.getCarrierArray()[row][col] == 1){
-                            System.out.println("Detected");
-                            return true;
-                        }
+                for (int[] ints : carrier.carrierArray) {
+                    for (int anInt : ints) {
+                        return anInt == carrier.carrierArray[row][col];
+                    }
                 }
+            }
             case "Submarine" -> {
                 for (int[] ints : submarine.submarineArray) {
                     for (int anInt : ints) {

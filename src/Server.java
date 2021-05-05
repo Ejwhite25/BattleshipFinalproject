@@ -40,8 +40,9 @@ public class Server {
         new Server().go();
     }
     void go() throws IOException {
-        ServerSocket server = new ServerSocket(7000);
+        ServerSocket server = new ServerSocket(9000);
         Socket connectionOne = server.accept();
+        controller.player1.setUp();
         System.out.println("Server>> P1 connected");
         writerSocket = new PrintWriter(connectionOne.getOutputStream());
         writerSocket.println("Player1> Enter your guess in the format: X,Y");
@@ -51,6 +52,7 @@ public class Server {
 
         Socket connectionTwo = server.accept();
         System.out.println("server>> P2 connected");
+        controller.player2.setUp();
         writerSocket = new PrintWriter(connectionTwo.getOutputStream());
         writerSocket.println("P2 connected to server" );
         writerSocket.flush();
@@ -81,12 +83,12 @@ public class Server {
                     String[] coordinates = sharedMessage.split(",");
                     int x = Integer.parseInt(coordinates[0]);
                     int y = Integer.parseInt(coordinates[1]);
-                    if (controller.player2.testShip("Carrier",x,y)){
+                    if (controller.player2.board.testHit(x,y)){
                         controller.player1.board.updateBoard("Hit",x,y);
                         sharedMessage = "Player 2 has been hit!";
                         writerSocket.println(sharedMessage);
                         writerSocket.flush();
-                        if (controller.player2.testShip(player1shipHit, x, y)) {
+                        if (controller.player2.testShip("C", x, y)) {
                             sharedMessage = "Player 2's" + player1shipHit + " is Down";
                             writerSocket.println(sharedMessage);
                             writerSocket.flush();
@@ -146,7 +148,7 @@ public class Server {
                     System.out.println("Player 2 X:" + x);
                     System.out.println("PLayer 2 Y:" + y);
                     Coordinate coordinate = new Coordinate(x,y);
-                    if(controller.player1.getCarrier().testCarrierHit(2,x,y)){
+                    if(controller.player1.testShip("Carrier",x,y)){
                         controller.player2.board.updateBoard("Hit",x,y);
                         sharedMessage = "Player 2 has a hit" + 50;
                         writerSocket.println(sharedMessage);
@@ -178,5 +180,3 @@ public class Server {
         }
     }
 }
-
-

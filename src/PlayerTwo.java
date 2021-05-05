@@ -11,8 +11,8 @@ public class PlayerTwo {
     private static InputStreamReader readerSocket;
     private static PrintWriter writerSocket;
     private static BufferedReader bufferedReader;
-    GUIController guiController;
     Controller controller = Controller.returnController();
+    GUIController guiController;
     private static boolean state = false;
     boolean setupState = false;
     private ArrayList<String> ships = new ArrayList<String>(4);
@@ -25,64 +25,22 @@ public class PlayerTwo {
     private void go(){
         guiController = new GUIController();
         try {
-            playerSetup();
-            socket = new Socket("127.0.0.1", 7000);
+            socket = new Socket("127.0.0.1", 9000);
             receiveRead();
-            if(Controller.state) {
+            while (true) {
+                if (Controller.state) {
                     writeSend();
                     Controller.state = false;
-                }
-                else {
+                } else {
                     receiveRead();
                     Controller.state = true;
                 }
+            }
         }catch (IOException e){
             e.printStackTrace();
         }
     }
-    void playerSetup() throws IOException{
-        for(String ship: controller.player2.ships){
-            int x;
-            int y;
-            switch (ship) {
-                case "Destroyer" -> {
-                    x = (int) (Math.random() * (9) + 0);
-                    y = (int) (Math.random() * (9) + 0);
-                    Destroyer destroyer = new Destroyer(x, y);
-                    controller.player2.setDestroyer(destroyer);
-                    controller.player2.getDestroyer().createShip(2);
-                }
-                case "Carrier" -> {
-                    x = (int) (Math.random() * (9) + 1);
-                    y = (int) (Math.random() * (9) + 1);
-                    Carrier carrier = new Carrier(x,y);
-                    System.out.println("X:" + x);
-                    System.out.println("Y:" + y);
-                    controller.player2.setCarrier(carrier);
-                    controller.player2.board.createShip(x,y);
-                    controller.player2.carrier.createShip(2);
 
-                }
-                case "Battleship" -> {
-                    x = (int) (Math.random() * (9) + 0);
-                    y = (int) (Math.random() * (9) + 0);
-                    Battleship battleship = new Battleship(x, y);
-                    controller.player2.setBattleship(battleship);
-                    controller.player2.getBattleship().createShip(2);
-                }
-                case "Submarine"-> {
-                    x = (int) (Math.random() * (9) + 0);
-                    y = (int) (Math.random() * (9) + 0);
-                    Submarine submarine = new Submarine(x, y);
-                    controller.player2.setSubmarine(submarine);
-                    controller.player2.getSubmarine().createShip(2);
-
-
-                }
-            }
-        }
-        controller.player2.displayBoard(guiController);
-    }
     private void writeSend() throws IOException {
         String input;
         input = guiController.inputLine;
@@ -95,6 +53,7 @@ public class PlayerTwo {
     }
 
     private void receiveRead() throws IOException {
+        controller.player2.displayBoard(guiController);
         readerSocket = new InputStreamReader(socket.getInputStream());
         bufferedReader = new BufferedReader(readerSocket);
         String line = bufferedReader.readLine();

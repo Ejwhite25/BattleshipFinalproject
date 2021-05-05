@@ -1,7 +1,5 @@
 public class Turn {
     int playerId;
-    int firstCoordinate;
-    int secondCoordinate;
     public Turn() {
 
     }
@@ -17,7 +15,6 @@ public class Turn {
             }
         } else if (playerId == 2) {
             if (Controller.returnController().player1.getBoard().board1[x][y] == 1) {
-                System.out.println("There's been a hit!");
                 return true;
 
             } else {
