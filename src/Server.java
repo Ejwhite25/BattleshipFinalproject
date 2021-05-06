@@ -13,6 +13,8 @@ public class Server {
     public static String player1shipHit;
     Controller controller = Controller.returnController();
     private static String sharedMessage;
+    private static boolean player1Turn = true;
+    private static boolean player2Turn = false;
     int shipsLeftPlayer1 = 4;
     int shipsLeftPlayer2 = 4;
     public static String player2hit;
@@ -67,32 +69,21 @@ public class Server {
         JobOne(Socket name) {
             socket = name;
         }
+        public void Turn(){
 
+        }
         @Override
         public void run() {
             try {
                 readerSocket = new InputStreamReader(socket.getInputStream());
                 buffedReader = new BufferedReader(readerSocket);
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
             while (true) {
                 Controller.state = false;
-                if(!socket.isConnected()){
-                    try {
-                        socket.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
                 try {
                     sharedMessage = buffedReader.readLine();
-                    if(buffedReader.readLine() == null){
-                        socket.close();
-                        System.exit(0);
-                    }
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -111,7 +102,7 @@ public class Server {
                             sharedMessage = "Player 1 has won!";
                         }
                     }
-                } else if (!controller.player2.board.testHit(x, y)) {
+                } else {
                     sharedMessage = "Player 1 misses!";
                 }
                 try {
@@ -138,16 +129,14 @@ public class Server {
         @Override
         public void run() {
             try {
-                writerSocket = new PrintWriter((socket.getOutputStream()));
                 readerSocket = new InputStreamReader(socket.getInputStream());
                 buffedReader = new BufferedReader(readerSocket);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            while (true) {
-                waitForLock();
-                writerSocket.println(sharedMessage);
-                writerSocket.flush();
+            waitForLock();
+            writerSocket.println(sharedMessage);
+            writerSocket.flush();
                 while (true) {
                     Controller.state1 = false;
                     writerSocket.println("Player2> Enter the coordinates in the format X,Y:");
@@ -165,6 +154,7 @@ public class Server {
                         sharedMessage = buffedReader.readLine();
                         if(sharedMessage == null){
                             socket.close();
+                            System.exit(0);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -195,4 +185,3 @@ public class Server {
             }
         }
     }
-}

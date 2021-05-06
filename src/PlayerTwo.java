@@ -29,16 +29,12 @@ public class PlayerTwo {
             socket = new Socket("127.0.0.1", 5000);
             receiveRead();
             while (true) {
-                if(!socket.isConnected()){
-                    socket.close();
-                    System.exit(0);
-                }
-                if (Controller.state1) {
+                if (Controller.state) {
                     writeSend();
-                    Controller.state1 = true;
+                    Controller.state = false;
                 } else {
                     receiveRead();
-                    Controller.state1 = false;
+                    Controller.state = true;
                 }
             }
         }catch (IOException e){

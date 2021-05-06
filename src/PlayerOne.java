@@ -53,10 +53,6 @@ public class PlayerOne {
         readerSocket = new InputStreamReader(socket.getInputStream());
         bufferedReader = new BufferedReader(readerSocket);
         String line = bufferedReader.readLine();
-        if(line == null){
-            socket.close();
-            System.exit(0);
-        }
         guiController.gui.setOutputText(line);
         controller.player1.displayBoard(guiController);
 
