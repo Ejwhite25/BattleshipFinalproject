@@ -11,6 +11,7 @@ public class PlayerTwo {
     private static InputStreamReader readerSocket;
     private static PrintWriter writerSocket;
     private static BufferedReader bufferedReader;
+    public static String input;
     Controller controller = Controller.returnController();
     GUIController guiController;
     private static boolean state = false;
@@ -25,16 +26,17 @@ public class PlayerTwo {
 
     private void go(){
         guiController = new GUIController();
+        controller.player2.displayBoard(guiController);
         try {
             socket = new Socket("127.0.0.1", 5000);
             receiveRead();
             while (true) {
-                if (Controller.state) {
+                if (Controller.state1) {
                     writeSend();
-                    Controller.state = false;
+                    Controller.state1 = false;
                 } else {
                     receiveRead();
-                    Controller.state = true;
+                    Controller.state1 = true;
                 }
             }
         }catch (IOException e){
@@ -43,13 +45,12 @@ public class PlayerTwo {
     }
 
     private void writeSend() throws IOException {
-        String input;
-        input = guiController.inputLine;
-        if(input != null){
-            writerSocket = new PrintWriter(socket.getOutputStream());
-            writerSocket.println(input);
-            writerSocket.flush();
+        while (input == null) {
+            input = guiController.inputLine;
         }
+        writerSocket = new PrintWriter(socket.getOutputStream());
+        writerSocket.println(input);
+        writerSocket.flush();
 
     }
 
@@ -58,7 +59,6 @@ public class PlayerTwo {
         bufferedReader = new BufferedReader(readerSocket);
         String line = bufferedReader.readLine();
         guiController.gui.setOutputText(line);
-        controller.player2.displayBoard(guiController);
     }
 
 }
